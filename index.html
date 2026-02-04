@@ -364,6 +364,40 @@
             z-index: 1;
         }
 
+        /* Cursor trail */
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.1s ease-out;
+            mix-blend-mode: difference;
+        }
+
+        /* Cursor effect on interactive elements */
+        a:hover ~ .cursor-follower,
+        button:hover ~ .cursor-follower,
+        input:hover ~ .cursor-follower {
+            width: 60px;
+            height: 60px;
+            opacity: 0.5;
+        }
+
         /* Navigation */
         .nav {
             position: fixed;
@@ -511,6 +545,10 @@
     
     <!-- Grid overlay -->
     <div class="grid-overlay"></div>
+
+    <!-- Custom cursor -->
+    <div class="cursor-follower"></div>
+    <div class="cursor-dot"></div>
     
     <div class="container">
         <div class="logo">
@@ -553,6 +591,60 @@
     </div>
 
     <script>
+        // Custom cursor tracking
+        const cursorFollower = document.querySelector('.cursor-follower');
+        const cursorDot = document.querySelector('.cursor-dot');
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let followerX = 0;
+        let followerY = 0;
+        let dotX = 0;
+        let dotY = 0;
+
+        // Track mouse position
+        document.addEventListener('mousemove', function(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Smooth cursor follow animation
+        function animateCursor() {
+            // Smooth follow for the larger circle (slower)
+            const followerSpeed = 0.15;
+            followerX += (mouseX - followerX) * followerSpeed;
+            followerY += (mouseY - followerY) * followerSpeed;
+            
+            // Faster follow for the dot
+            const dotSpeed = 0.25;
+            dotX += (mouseX - dotX) * dotSpeed;
+            dotY += (mouseY - dotY) * dotSpeed;
+            
+            cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
+            cursorDot.style.transform = `translate(${dotX - 4}px, ${dotY - 4}px)`;
+            
+            requestAnimationFrame(animateCursor);
+        }
+        
+        animateCursor();
+
+        // Cursor effect on interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, input');
+        
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursorFollower.style.width = '60px';
+                cursorFollower.style.height = '60px';
+                cursorFollower.style.opacity = '0.5';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursorFollower.style.width = '40px';
+                cursorFollower.style.height = '40px';
+                cursorFollower.style.opacity = '1';
+            });
+        });
+
         // Form handling
         document.getElementById('notifyForm').addEventListener('submit', function(e) {
             e.preventDefault();
