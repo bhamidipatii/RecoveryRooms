@@ -112,6 +112,7 @@
             width: 60px;
             height: 60px;
             margin-bottom: 3rem;
+            margin-top: 5rem;
             opacity: 0;
             animation: fadeInDown 1s ease-out 0.2s forwards;
         }
@@ -143,7 +144,7 @@
             font-weight: 600;
             letter-spacing: -0.03em;
             line-height: 1.05;
-            margin-bottom: 1.5rem;
+            margin-bottom: 3rem;
             opacity: 0;
             animation: fadeInUp 1s ease-out 0.4s forwards;
         }
@@ -170,7 +171,7 @@
             font-size: clamp(1.125rem, 3vw, 1.5rem);
             font-weight: 400;
             color: #86868b;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             opacity: 0;
             animation: fadeInUp 1s ease-out 0.6s forwards;
             min-height: 2rem;
@@ -195,7 +196,7 @@
             font-size: clamp(1rem, 2.5vw, 1.25rem);
             line-height: 1.6;
             color: #a1a1a6;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             font-weight: 400;
             max-width: 600px;
             opacity: 0;
@@ -268,10 +269,17 @@
             background: transparent;
             color: #ffffff;
             outline: none;
+            text-align: center;
         }
 
         input[type="email"]::placeholder {
             color: #86868b;
+        }
+
+        @media (min-width: 769px) {
+            input[type="email"] {
+                text-align: left;
+            }
         }
 
         button {
@@ -508,6 +516,10 @@
                 font-size: 0.875rem;
             }
 
+            .logo {
+                margin-top: 6rem;
+            }
+
             .input-group {
                 flex-direction: column;
             }
@@ -534,6 +546,10 @@
             .nav-logo-small {
                 width: 28px;
                 height: 28px;
+            }
+
+            .logo {
+                margin-top: 4rem;
             }
         }
     </style>
