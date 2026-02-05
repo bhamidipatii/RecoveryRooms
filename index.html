@@ -411,7 +411,7 @@
             z-index: 2;
             max-width: 640px;
             margin: 0 auto;
-            padding: 5rem 2rem 4rem;
+            padding: 3rem 2rem 4rem;
             text-align: center;
         }
 
@@ -462,30 +462,31 @@
         .highlight-word::before {
             content: '';
             position: absolute;
-            left: -4px;
-            right: -4px;
-            top: 50%;
-            height: 60%;
-            transform: translateY(-50%);
-            background: linear-gradient(to right, #ffeb3b, #ffd54f);
+            left: -0.2em;
+            right: -0.2em;
+            top: -0.05em;
+            bottom: -0.05em;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath fill='%23ffeb3b' fill-opacity='0.65' d='M2,8 C150,5 300,12 450,8 C520,6 570,10 598,8 L598,15 C570,18 520,14 450,16 C300,20 150,13 2,16 Z M2,16 L2,84 M598,16 L598,84 M2,84 C150,87 300,80 450,84 C520,86 570,82 598,84 L598,92 C570,90 520,94 450,92 C300,88 150,95 2,92 Z'/%3E%3Cpath fill='%23ffeb3b' fill-opacity='0.4' d='M4,10 C152,8 302,13 452,10 C522,9 572,11 596,10 L596,13 C572,15 522,12 452,14 C302,17 152,11 4,14 Z M4,14 L4,86 M596,14 L596,86 M4,86 C152,89 302,83 452,86 C522,88 572,85 596,86 L596,90 C572,88 522,92 452,90 C302,86 152,93 4,90 Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 0% 100%;
+            background-position: left center;
             opacity: 0;
             z-index: -1;
-            transition: opacity 0.6s ease;
+            filter: blur(0.2px);
+            transform: rotate(-1deg);
         }
 
         .highlight-word.active::before {
-            opacity: 0.7;
-            animation: highlighterDraw 0.8s ease-out forwards;
+            opacity: 1;
+            animation: highlighterExpand 0.7s ease-out forwards;
         }
 
-        @keyframes highlighterDraw {
-            from {
-                width: 0;
-                left: 50%;
+        @keyframes highlighterExpand {
+            0% {
+                background-size: 0% 100%;
             }
-            to {
-                width: calc(100% + 8px);
-                left: -4px;
+            100% {
+                background-size: 100% 100%;
             }
         }
 
@@ -513,8 +514,8 @@
         /* Font changing animation for Recovery word - messy handwritten style */
         .font-morph {
             display: inline-block;
-            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Bradley Hand', cursive;
-            animation: messyHandwriting 2s infinite;
+            /* font-family: 'Comic Sans MS', 'Chalkboard SE', 'Bradley Hand', cursive; */
+            /* animation: messyHandwriting 2s infinite; */
         }
 
         @keyframes messyHandwriting {
@@ -872,7 +873,49 @@
         }
 
     
-        /* Paint underline (scroll-activated) — brush stroke */
+        /* Red highlighter effect for "while" */
+        .circle-word {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .circle-word::after {
+            content: '';
+            position: absolute;
+            left: -0.15em;
+            right: -0.15em;
+            top: 0.1em;
+            bottom: 0.1em;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 100' preserveAspectRatio='none'%3E%3Cpath fill='%23ff4444' fill-opacity='0.45' d='M5,25 C35,18 65,28 95,22 C130,15 160,26 195,20 C235,12 270,26 310,18 C350,10 385,24 425,18 C465,12 500,24 540,18 C565,14 585,20 595,18 L595,82 C565,86 530,74 495,80 C455,88 420,74 380,80 C340,88 305,74 265,80 C225,88 190,74 150,80 C110,88 75,74 35,80 C20,84 10,78 5,80 Z'/%3E%3Cpath fill='%23ff4444' fill-opacity='0.35' d='M8,28 C40,22 70,30 100,25 C135,19 165,28 200,23 C240,16 275,28 315,21 C355,14 390,26 430,21 C470,16 505,26 545,22 C570,18 588,22 592,21 L592,78 C560,82 525,72 490,76 C450,82 415,72 375,76 C335,82 300,72 260,76 C220,82 185,72 145,76 C105,82 70,72 30,76 C18,78 12,74 8,76 Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            transform: rotate(-0.5deg);
+            opacity: 0;
+            z-index: -1;
+            clip-path: inset(0 100% 0 0);
+            filter: blur(0.5px);
+        }
+
+        .circle-word.active::after {
+            animation: highlighterSwipe 0.8s ease-out forwards;
+        }
+
+        @keyframes highlighterSwipe {
+            0% {
+                opacity: 0;
+                clip-path: inset(0 100% 0 0);
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                clip-path: inset(0 -2% 0 0);
+            }
+        }
+
+        /* Hand-drawn underline animation */
         .paint-underline {
             position: relative;
             display: inline-block;
@@ -886,24 +929,25 @@
             right: -0.12em;
             bottom: 0.10em;
             height: 0.55em;
-            background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%2080%27%20preserveAspectRatio%3D%27none%27%3E%0A%3Cpath%20fill%3D%27white%27%20fill-opacity%3D%270.85%27%20d%3D%27M8%2C48%0AC40%2C42%2070%2C62%20102%2C52%0AC140%2C40%20170%2C62%20206%2C52%0AC250%2C38%20280%2C62%20320%2C50%0AC360%2C40%20390%2C62%20430%2C52%0AC470%2C40%20500%2C60%20536%2C50%0AC560%2C44%20578%2C54%20592%2C50%0AL592%2C68%0AC560%2C74%20520%2C60%20488%2C68%0AC450%2C76%20418%2C58%20380%2C68%0AC340%2C78%20312%2C58%20270%2C68%0AC230%2C78%20200%2C56%20160%2C68%0AC120%2C78%2090%2C56%2050%2C68%0AC30%2C74%2018%2C66%208%2C70%20Z%27/%3E%0A%3Cpath%20fill%3D%27white%27%20fill-opacity%3D%270.55%27%20d%3D%27M18%2C52%0AC60%2C46%2084%2C62%20120%2C54%0AC160%2C44%20186%2C64%20224%2C54%0AC264%2C42%20292%2C64%20332%2C52%0AC372%2C42%20400%2C62%20438%2C54%0AC480%2C46%20520%2C60%20582%2C54%0AL582%2C60%0AC520%2C66%20480%2C56%20440%2C62%0AC398%2C68%20372%2C54%20330%2C62%0AC292%2C70%20262%2C54%20222%2C62%0AC182%2C70%20156%2C54%20118%2C62%0AC80%2C70%2056%2C56%2018%2C62%20Z%27/%3E%0A%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            transform: rotate(-1deg);
-            opacity: 0.95;
+            background: none;
             z-index: -1;
-            clip-path: inset(0 100% 0 0);
-            filter: blur(0.15px);
+            opacity: 0;
         }
 
         .paint-underline.active::after {
-            animation: paintReveal 0.85s ease-out forwards;
+            opacity: 1;
+            animation: drawUnderline 1.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
         }
 
-        @keyframes paintReveal {
-            0%   { clip-path: inset(0 100% 0 0); }
-            70%  { clip-path: inset(0 -3% 0 0); }
-            100% { clip-path: inset(0 0 0 0); }
+        @keyframes drawUnderline {
+            0% {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 80' preserveAspectRatio='none'%3E%3Cpath fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-opacity='0.85' d='M8,48 C8,48 8,48 8,48' stroke-dasharray='1000' stroke-dashoffset='1000'/%3E%3C/svg%3E");
+            }
+            100% {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 80' preserveAspectRatio='none'%3E%3Cpath fill='none' stroke='white' stroke-width='8' stroke-linecap='round' stroke-opacity='0.85' d='M8,48 C40,42 70,62 102,52 C140,40 170,62 206,52 C250,38 280,62 320,50 C360,40 390,62 430,52 C470,40 500,60 536,50 C560,44 578,54 592,50' stroke-dasharray='1000' stroke-dashoffset='0'/%3E%3Cpath fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-opacity='0.55' d='M18,52 C60,46 84,62 120,54 C160,44 186,64 224,54 C264,42 292,64 332,52 C372,42 400,62 438,54 C480,46 520,60 582,54' stroke-dasharray='1000' stroke-dashoffset='0'/%3E%3C/svg%3E");
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+            }
         }
 
     </style>
@@ -950,7 +994,7 @@
             <div class="hero-logo-circle"></div>
         </div>
         
-        <h1><span class="gradient-text">Recovery.<br>Wellness.<br>Reimagined.</span></h1>
+        <h1><span class="gradient-text">Recovery.<br>Reimagined.</span></h1>
         
         <p class="hero-subtitle">Coming Soon</p>
         
@@ -961,7 +1005,7 @@
 
     <!-- Story Content -->
     <div class="story" id="story">
-        <p>Movement used to be mandatory. Then it became optional. So we optimized it. Morning walks became ritual—steps, sunlight, discipline. Yoga followed—breath, balance, mobility. Then strength training, because muscle matters. Running for endurance. Pilates for control. Each era promised the breakthrough. And each delivered. For a while.</p>
+        <p>Movement used to be mandatory. Then it became optional. So we optimized it. Morning walks became ritual—steps, sunlight, discipline. Yoga followed—breath, balance, mobility. Then strength training, because muscle matters. Running for endurance. Pilates for control. Each era promised the breakthrough. And each delivered. For a <span class="circle-word" id="circle-while">while</span>.</p>
         
         <p>Because effort was never the full equation.</p>
         
@@ -1125,7 +1169,7 @@
             });
         }, {
             root: null,
-            rootMargin: '-45% 0px -45% 0px',
+            rootMargin: '-75% 0px -25% 0px',
             threshold: 0
         });
 
@@ -1153,7 +1197,7 @@
         }
 
 
-        // Paint underline effect for final "Recover"
+        // Hand-drawn underline effect for final "recovering" - triggers at 50% screen
         const underlineObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1162,13 +1206,31 @@
             });
         }, {
             root: null,
-            rootMargin: '-45% 0px -45% 0px',
+            rootMargin: '0px 0px -50% 0px',
             threshold: 0
         });
 
         const underlineRecover = document.getElementById('underline-recover');
         if (underlineRecover) {
             underlineObserver.observe(underlineRecover);
+        }
+
+        // Circle animation for "while"
+        const circleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '-75% 0px -25% 0px',
+            threshold: 0
+        });
+
+        const circleWhile = document.getElementById('circle-while');
+        if (circleWhile) {
+            circleObserver.observe(circleWhile);
         }
 
         // Form handling
