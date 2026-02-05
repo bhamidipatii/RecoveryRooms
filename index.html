@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recover Rooms</title>
+    <title>Coming Soon - Recovery & Wellness</title>
     <style>
         * {
             margin: 0;
@@ -293,15 +293,42 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         button:hover {
-            background: #e5e5e5;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
             transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+        }
+
+        button:hover::before {
+            opacity: 1;
         }
 
         button:active {
             transform: scale(0.98);
+        }
+
+        button span {
+            position: relative;
+            z-index: 1;
         }
 
         /* Success message */
@@ -356,25 +383,33 @@
             font-size: 0.9375rem;
             transition: all 0.3s ease;
             position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
         }
 
-        .social-links a::after {
+        .social-links a::before {
             content: '';
             position: absolute;
-            bottom: -4px;
+            top: 0;
             left: 0;
-            width: 0;
-            height: 1px;
-            background: #ffffff;
-            transition: width 0.3s ease;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .social-links a:hover {
             color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
         }
 
-        .social-links a:hover::after {
-            width: 100%;
+        .social-links a:hover::before {
+            opacity: 1;
         }
 
         /* Particle */
@@ -443,11 +478,39 @@
             gap: 0.75rem;
             text-decoration: none;
             color: #ffffff;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .nav-brand::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            opacity: 0;
             transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .nav-brand:hover {
-            opacity: 0.7;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-brand:hover::before {
+            opacity: 1;
+        }
+
+        .nav-brand > * {
+            position: relative;
+            z-index: 1;
         }
 
         .nav-logo-small {
@@ -477,25 +540,33 @@
             font-weight: 400;
             transition: all 0.3s ease;
             position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
         }
 
-        .nav-menu a::after {
+        .nav-menu a::before {
             content: '';
             position: absolute;
-            bottom: -4px;
+            top: 0;
             left: 0;
-            width: 0;
-            height: 1px;
-            background: #ffffff;
-            transition: width 0.3s ease;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .nav-menu a:hover {
             color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
         }
 
-        .nav-menu a:hover::after {
-            width: 100%;
+        .nav-menu a:hover::before {
+            opacity: 1;
         }
 
         /* Responsive */
@@ -606,7 +677,7 @@
                         aria-label="Email address"
                     >
                     <button type="submit">
-                        Notify Me
+                        <span>Notify Me</span>
                     </button>
                 </div>
             </div>
