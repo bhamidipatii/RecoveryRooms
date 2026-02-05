@@ -510,6 +510,56 @@
             opacity: 1;
         }
 
+        /* Font changing animation for Recovery word - messy handwritten style */
+        .font-morph {
+            display: inline-block;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Bradley Hand', cursive;
+            animation: messyHandwriting 2s infinite;
+        }
+
+        @keyframes messyHandwriting {
+            0%, 10% {
+                transform: rotate(-2deg) skew(-1deg) translateY(-1px);
+                font-weight: 700;
+            }
+            10%, 20% {
+                transform: rotate(1.5deg) skew(1deg) translateY(1px);
+                font-weight: 600;
+            }
+            20%, 30% {
+                transform: rotate(-1deg) skew(-0.5deg) translateY(-0.5px);
+                font-weight: 700;
+            }
+            30%, 40% {
+                transform: rotate(2deg) skew(1.5deg) translateY(0.5px);
+                font-weight: 600;
+            }
+            40%, 50% {
+                transform: rotate(-1.5deg) skew(-1deg) translateY(1px);
+                font-weight: 700;
+            }
+            50%, 60% {
+                transform: rotate(1deg) skew(0.5deg) translateY(-1px);
+                font-weight: 600;
+            }
+            60%, 70% {
+                transform: rotate(-2deg) skew(-1.5deg) translateY(0.5px);
+                font-weight: 700;
+            }
+            70%, 80% {
+                transform: rotate(1.5deg) skew(1deg) translateY(-0.5px);
+                font-weight: 600;
+            }
+            80%, 90% {
+                transform: rotate(-1deg) skew(-0.5deg) translateY(1px);
+                font-weight: 700;
+            }
+            90%, 100% {
+                transform: rotate(-2deg) skew(-1deg) translateY(-1px);
+                font-weight: 700;
+            }
+        }
+
         /* Waitlist Section */
         .waitlist {
             position: relative;
@@ -794,7 +844,7 @@
         @media (pointer: coarse) {
             .cursor-dot,
             .cursor-follower {
-                display: none;
+                display: block;
             }
             body {
                 cursor: auto;
@@ -929,7 +979,7 @@
         
         <div class="space"></div>
         
-        <p class="large-statement">It's <span id="recovery-text">Recovery</span><span class="logo-inline" id="logo-inline"></span></p>
+        <p class="large-statement">It's <span id="recovery-text" class="font-morph">Recovery</span><span class="logo-inline" id="logo-inline"></span></p>
         
         <div class="space"></div>
         
@@ -946,8 +996,9 @@
         <!-- Waitlist Section -->
         <div class="waitlist" id="waitlist">
             <h2>A new era of Recovery is here.</h2>
-            <p class="waitlist-subtitle">Invite only.</p>
-            <p class="waitlist-subtitle">Join the waitlist</p>
+            <br>
+            <p class="waitlist-subtitle" style="text-align: center;">Invite only.</p>
+            <p class="waitlist-subtitle" style="text-align: center;">Join the waitlist</p>
             
             <form class="waitlist-form" id="waitlistForm">
                 <div class="input-wrapper">
@@ -1162,6 +1213,7 @@
         let ringX = 0, ringY = 0;
         let initialized = false;
 
+        // Mouse events for desktop
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -1172,6 +1224,35 @@
                 ringX = mouseX;
                 ringY = mouseY;
                 initialized = true;
+            }
+        });
+
+        // Touch events for mobile
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
+
+                dot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+
+                if (!initialized) {
+                    ringX = mouseX;
+                    ringY = mouseY;
+                    initialized = true;
+                }
+            }
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
+                
+                if (!initialized) {
+                    ringX = mouseX;
+                    ringY = mouseY;
+                    initialized = true;
+                }
             }
         });
 
