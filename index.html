@@ -11,17 +11,6 @@
             box-sizing: border-box;
         }
 
-        /* Custom text selection - inverted colors */
-        ::selection {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        ::-moz-selection {
-            background: #ffffff;
-            color: #000000;
-        }
-
         html {
             scroll-behavior: smooth;
         }
@@ -33,6 +22,17 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom text selection colors - inverted contrast */
+        ::selection {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        ::-moz-selection {
+            background: #ffffff;
+            color: #000000;
         }
 
         /* Dynamic animated background with orbs */
@@ -118,7 +118,7 @@
             z-index: 100;
             padding: 2rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             background: rgba(10, 10, 10, 0.6);
             backdrop-filter: blur(20px);
@@ -176,19 +176,71 @@
             z-index: 1;
         }
 
-        .nav-links {
+        /* Hamburger Menu */
+        .menu-toggle {
+            position: absolute;
+            right: 2rem;
             display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 101;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: #ffffff;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Mobile Menu */
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             gap: 2rem;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 99;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links.active {
+            right: 0;
         }
 
         .nav-links a {
-            color: #86868b;
+            color: #ffffff;
             text-decoration: none;
-            font-size: 0.9375rem;
+            font-size: 1.5rem;
             font-weight: 400;
             transition: all 0.3s ease;
             position: relative;
-            padding: 0.5rem 1rem;
+            padding: 1rem 2rem;
             border-radius: 8px;
         }
 
@@ -215,6 +267,25 @@
 
         .nav-links a:hover::before {
             opacity: 1;
+        }
+
+        /* Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 98;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Hero Section */
@@ -360,7 +431,7 @@
         }
 
         .large-statement {
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 600;
             line-height: 1.3;
             margin: 3rem 0;
@@ -622,8 +693,8 @@
                 padding: 1.5rem;
             }
 
-            .nav-links {
-                gap: 1rem;
+            .menu-toggle {
+                right: 1.5rem;
             }
 
             .hero {
@@ -636,6 +707,19 @@
 
             .story {
                 padding: 3.5rem 1.5rem 3rem;
+                text-align: left;
+            }
+
+            .story p {
+                font-size: clamp(1.375rem, 3vw, 1.875rem);
+                line-height: 1.8;
+                text-align: left;
+            }
+
+            .story .large-statement {
+                font-size: clamp(2.25rem, 6vw, 4rem);
+                line-height: 1.25;
+                text-align: center;
             }
 
             .waitlist {
@@ -646,6 +730,34 @@
             .social-links {
                 flex-direction: column;
                 gap: 1rem;
+            }
+        }
+
+        /* Desktop - hide hamburger, show horizontal menu */
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none;
+            }
+
+            .nav {
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                position: static;
+                width: auto;
+                max-width: none;
+                height: auto;
+                background: transparent;
+                flex-direction: row;
+                gap: 2rem;
+                border: none;
+            }
+
+            .nav-links a {
+                font-size: 0.9375rem;
+                padding: 0.5rem 1rem;
+                color: #86868b;
             }
         }
     
@@ -744,151 +856,6 @@
             100% { clip-path: inset(0 0 0 0); }
         }
 
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
-            /* Hero section */
-            .hero {
-                padding: 6rem 1.5rem 3rem;
-                min-height: 90vh;
-            }
-
-            .hero h1 {
-                font-size: clamp(2rem, 12vw, 3.5rem);
-                line-height: 1.1;
-                margin-bottom: 1rem;
-            }
-
-            .hero-subtitle {
-                font-size: clamp(1rem, 4vw, 1.25rem);
-                margin-top: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            .hero-description {
-                font-size: clamp(0.9rem, 3.5vw, 1.1rem);
-                max-width: 90%;
-                padding: 0 1rem;
-            }
-
-            .hero-logo {
-                width: 50px;
-                height: 50px;
-                margin-bottom: 2rem;
-            }
-
-            /* Navigation */
-            .nav {
-                padding: 1rem 1.5rem;
-            }
-
-            .nav-brand {
-                font-size: 1rem;
-                padding: 0.4rem 0.8rem;
-            }
-
-            .nav-logo {
-                width: 28px;
-                height: 28px;
-            }
-
-            .nav-links {
-                gap: 1rem;
-            }
-
-            .nav-links a {
-                font-size: 0.85rem;
-                padding: 0.4rem 0.8rem;
-            }
-
-            /* Story section */
-            .story {
-                padding: 3rem 1.5rem 3rem;
-            }
-
-            .story p {
-                font-size: clamp(1rem, 4vw, 1.4rem);
-                line-height: 1.6;
-                margin-bottom: 1.5rem;
-            }
-
-            .large-statement {
-                font-size: clamp(1.75rem, 8vw, 3rem);
-                line-height: 1.2;
-                margin: 2rem 0;
-            }
-
-            .story .space {
-                height: 1.5rem;
-            }
-
-            /* Waitlist section */
-            .waitlist {
-                padding: 3rem 1.5rem;
-            }
-
-            .waitlist h2 {
-                font-size: clamp(1.5rem, 7vw, 2.5rem);
-            }
-
-            .waitlist-subtitle {
-                font-size: clamp(0.9rem, 4vw, 1.1rem);
-            }
-
-            .waitlist-form {
-                max-width: 100%;
-            }
-
-            .input-wrapper {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .input-wrapper input {
-                width: 100%;
-                font-size: 1rem;
-                padding: 1rem 1.25rem;
-            }
-
-            .input-wrapper button {
-                width: 100%;
-                padding: 1rem 2rem;
-                font-size: 1rem;
-            }
-
-            /* Cursor - show on touch devices */
-            .cursor-dot,
-            .cursor-follower {
-                display: block;
-                pointer-events: none;
-            }
-
-            /* Make touch-friendly tap targets */
-            a, button {
-                min-height: 44px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: clamp(1.75rem, 11vw, 2.5rem);
-            }
-
-            .large-statement {
-                font-size: clamp(1.5rem, 7vw, 2.25rem);
-            }
-
-            .story p {
-                font-size: clamp(0.95rem, 4vw, 1.2rem);
-            }
-
-            .nav-links a {
-                font-size: 0.8rem;
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -912,11 +879,20 @@
             <div class="nav-logo"></div>
             <span>Recovery Rooms</span>
         </a>
-        <div class="nav-links">
+        
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="nav-links" id="navLinks">
             <a href="#story">Our Story</a>
             <a href="#waitlist">Join Waitlist</a>
         </div>
     </nav>
+    
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
@@ -924,7 +900,7 @@
             <div class="hero-logo-circle"></div>
         </div>
         
-        <h1><span class="gradient-text">Recovery.<br>Reimagined.</span></h1>
+        <h1><span class="gradient-text">Recovery.<br>Wellness.<br>Reimagined.</span></h1>
         
         <p class="hero-subtitle">Coming Soon</p>
         
@@ -1045,6 +1021,30 @@
             setTimeout(tick, 900);
         }
 
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
         // Intersection Observer for scroll animations
         const observerOptions = {
             root: null,
@@ -1162,7 +1162,6 @@
         let ringX = 0, ringY = 0;
         let initialized = false;
 
-        // Mouse movement
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -1174,46 +1173,6 @@
                 ringY = mouseY;
                 initialized = true;
             }
-        });
-
-        // Touch support for mobile
-        document.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 0) {
-                mouseX = e.touches[0].clientX;
-                mouseY = e.touches[0].clientY;
-
-                dot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
-
-                if (!initialized) {
-                    ringX = mouseX;
-                    ringY = mouseY;
-                    initialized = true;
-                }
-            }
-        }, { passive: true });
-
-        document.addEventListener('touchstart', (e) => {
-            if (e.touches.length > 0) {
-                mouseX = e.touches[0].clientX;
-                mouseY = e.touches[0].clientY;
-
-                dot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
-                dot.style.opacity = '1';
-                ring.style.opacity = '1';
-
-                if (!initialized) {
-                    ringX = mouseX;
-                    ringY = mouseY;
-                    initialized = true;
-                }
-            }
-        }, { passive: true });
-
-        document.addEventListener('touchend', () => {
-            setTimeout(() => {
-                dot.style.opacity = '0';
-                ring.style.opacity = '0';
-            }, 300);
         });
 
         function animate() {
