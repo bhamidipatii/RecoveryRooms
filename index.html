@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon - Recovery & Wellness</title>
+    <title>Recovery Rooms - The Future of Recovery</title>
     <style>
         * {
             margin: 0;
@@ -11,18 +11,20 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
             background: #000000;
             color: #ffffff;
             overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Dynamic animated background */
+        /* Dynamic animated background with orbs */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -96,365 +98,6 @@
             pointer-events: none;
         }
 
-        .container {
-            position: relative;
-            z-index: 2;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .logo {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 3rem;
-            margin-top: 5rem;
-            opacity: 0;
-            animation: fadeInDown 1s ease-out 0.2s forwards;
-        }
-
-        .logo-circle {
-            width: 100%;
-            height: 100%;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.8;
-            }
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 10vw, 6rem);
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
-            margin-bottom: 3rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 0.4s forwards;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #ffffff 0%, #666666 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 200% 200%;
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .subtitle {
-            font-size: clamp(1.125rem, 3vw, 1.5rem);
-            font-weight: 400;
-            color: #86868b;
-            margin-bottom: 3rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 0.6s forwards;
-            min-height: 2rem;
-        }
-
-        .typing-text {
-            border-right: 2px solid #86868b;
-            padding-right: 4px;
-            animation: blink 0.7s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% {
-                border-color: #86868b;
-            }
-            51%, 100% {
-                border-color: transparent;
-            }
-        }
-
-        .description {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            line-height: 1.6;
-            color: #a1a1a6;
-            margin-bottom: 3.5rem;
-            font-weight: 400;
-            max-width: 600px;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 0.8s forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Email form */
-        .notify-form {
-            max-width: 500px;
-            width: 100%;
-            margin-bottom: 3rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 1s forwards;
-        }
-
-        .input-wrapper {
-            position: relative;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .input-wrapper:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .input-wrapper:focus-within {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
-        }
-
-        .input-group {
-            display: flex;
-            align-items: center;
-        }
-
-        input[type="email"] {
-            flex: 1;
-            padding: 1.125rem 1.5rem;
-            font-family: inherit;
-            font-size: 1rem;
-            border: none;
-            background: transparent;
-            color: #ffffff;
-            outline: none;
-            text-align: center;
-        }
-
-        input[type="email"]::placeholder {
-            color: #86868b;
-        }
-
-        @media (min-width: 769px) {
-            input[type="email"] {
-                text-align: left;
-            }
-        }
-
-        button {
-            padding: 1.125rem 2rem;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 500;
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        button:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            transform: scale(1.02);
-            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
-        }
-
-        button:hover::before {
-            opacity: 1;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        button span {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Success message */
-        .success-message {
-            display: none;
-            padding: 1rem;
-            margin-top: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 0.95rem;
-            backdrop-filter: blur(10px);
-            animation: slideIn 0.5s ease;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Social links */
-        .social-links {
-            display: flex;
-            gap: 2.5rem;
-            opacity: 0;
-            animation: fadeIn 1s ease-out 1.2s forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .social-links a {
-            color: #86868b;
-            text-decoration: none;
-            font-size: 0.9375rem;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-        }
-
-        .social-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .social-links a:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
-        }
-
-        .social-links a:hover::before {
-            opacity: 1;
-        }
-
-        /* Particle */
-        .particle {
-            position: fixed;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Cursor trail */
-        .cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-        }
-
-        .cursor-dot {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transition: transform 0.1s ease-out;
-        }
-
-        /* Cursor effect on interactive elements */
-        a:hover ~ .cursor-follower,
-        button:hover ~ .cursor-follower,
-        input:hover ~ .cursor-follower {
-            width: 60px;
-            height: 60px;
-            opacity: 0.5;
-        }
-
         /* Navigation */
         .nav {
             position: fixed;
@@ -466,8 +109,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            opacity: 0;
-            animation: fadeIn 1s ease-out 0.2s forwards;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .nav-brand {
@@ -476,10 +120,20 @@
             gap: 0.75rem;
             text-decoration: none;
             color: #ffffff;
-            transition: all 0.3s ease;
+            font-size: 1.125rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
             padding: 0.5rem 1rem;
             border-radius: 8px;
+            transition: all 0.3s ease;
             position: relative;
+        }
+
+        .nav-logo {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
         }
 
         .nav-brand::before {
@@ -511,27 +165,12 @@
             z-index: 1;
         }
 
-        .nav-logo-small {
-            width: 32px;
-            height: 32px;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        .nav-brand-text {
-            font-size: 1.125rem;
-            font-weight: 500;
-            letter-spacing: -0.01em;
-        }
-
-        .nav-menu {
+        .nav-links {
             display: flex;
-            gap: 2.5rem;
-            list-style: none;
+            gap: 2rem;
         }
 
-        .nav-menu a {
+        .nav-links a {
             color: #86868b;
             text-decoration: none;
             font-size: 0.9375rem;
@@ -542,7 +181,7 @@
             border-radius: 8px;
         }
 
-        .nav-menu a::before {
+        .nav-links a::before {
             content: '';
             position: absolute;
             top: 0;
@@ -556,88 +195,552 @@
             backdrop-filter: blur(10px);
         }
 
-        .nav-menu a:hover {
+        .nav-links a:hover {
             color: #ffffff;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
         }
 
-        .nav-menu a:hover::before {
+        .nav-links a:hover::before {
             opacity: 1;
         }
 
-        /* Responsive */
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero-logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInDown 1s ease-out 0.2s forwards;
+        }
+
+        .hero-logo-circle {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #666666 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            font-weight: 400;
+            color: #86868b;
+
+            /* one-line-ish spacing before and after */
+            margin-top: 1.25rem;
+            margin-bottom: 2.75rem;
+
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards, caretBlink 0.7s step-end 0.9s infinite;
+
+            display: inline-block;
+            white-space: nowrap;
+            border-right: 2px solid rgba(255, 255, 255, 0.35);
+            padding-right: 2px;
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            line-height: 1.6;
+            color: #a1a1a6;
+            max-width: 600px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.8s forwards;
+        }
+
+        /* Story Container */
+        .story {
+            position: relative;
+            z-index: 2;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .story p {
+            font-size: clamp(1.125rem, 2.5vw, 1.625rem);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .story p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .large-statement {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 3rem 0;
+            color: #ffffff;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .large-statement.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Paragraph spacing */
+        .story .space {
+            height: 2.5rem;
+        }
+
+        /* Highlighter effect */
+        .highlight-word {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        .highlight-word::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            right: -4px;
+            top: 50%;
+            height: 60%;
+            transform: translateY(-50%);
+            background: linear-gradient(to right, #ffeb3b, #ffd54f);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.6s ease;
+        }
+
+        .highlight-word.active::before {
+            opacity: 0.7;
+            animation: highlighterDraw 0.8s ease-out forwards;
+        }
+
+        @keyframes highlighterDraw {
+            from {
+                width: 0;
+                left: 50%;
+            }
+            to {
+                width: calc(100% + 8px);
+                left: -4px;
+            }
+        }
+
+        /* Inline logo */
+        .logo-inline {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border: 0 solid #ffffff;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-left: 0;
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .logo-inline.active {
+            width: 1.5em;
+            height: 1.5em;
+            border-width: 2px;
+            margin-left: 0.5rem;
+            opacity: 1;
+        }
+
+        /* Waitlist Section */
+        .waitlist {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin: 6rem auto 4rem;
+            padding: 4rem 2rem;
+            max-width: 640px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .waitlist h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .waitlist-subtitle {
+            font-size: 1.125rem;
+            color: #a0a0a0;
+            margin-bottom: 0.5rem;
+        }
+
+        .waitlist-form {
+            max-width: 500px;
+            margin: 3rem auto 0;
+        }
+
+        .input-wrapper {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .input-wrapper:focus-within {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .waitlist-form input {
+            padding: 1.125rem 1.5rem;
+            font-family: inherit;
+            font-size: 1rem;
+            border: none;
+            background: transparent;
+            color: #ffffff;
+            outline: none;
+            text-align: center;
+        }
+
+        .waitlist-form input::placeholder {
+            color: #86868b;
+        }
+
+        .waitlist-form button {
+            padding: 1.125rem 2rem;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .waitlist-form button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .waitlist-form button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+        }
+
+        .waitlist-form button:hover::before {
+            opacity: 1;
+        }
+
+        .waitlist-form button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #ffffff;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 2rem;
+            font-size: 0.9375rem;
+        }
+
+        .social-links a {
+            color: #86868b;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+        }
+
+        .social-links a:hover::before {
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #808080;
+            font-size: 0.875rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
             .nav {
                 padding: 1.5rem;
             }
 
-            .nav-brand-text {
-                font-size: 1rem;
+            .nav-links {
+                gap: 1rem;
             }
 
-            .nav-menu {
-                gap: 1.5rem;
+            .hero {
+                padding: 6rem 1.5rem 3rem;
             }
 
-            .nav-menu a {
-                font-size: 0.875rem;
+            .hero-logo {
+                margin-top: 4rem;
             }
 
-            .logo {
-                margin-top: 6rem;
+            .story {
+                padding: 3.5rem 1.5rem 3rem;
             }
 
-            .input-group {
-                flex-direction: column;
-            }
-
-            button {
-                width: 100%;
+            .waitlist {
+                margin: 4rem 1.5rem 2rem;
+                padding: 3rem 1.5rem;
             }
 
             .social-links {
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 1rem;
             }
         }
+    
+        /* Hide default cursor on desktop */
+                /* Cursor trail */
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            transform: translate(-9999px, -9999px);
+            transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+        }
 
-        @media (max-width: 480px) {
-            .nav-menu {
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            transform: translate(-9999px, -9999px);
+        }
+
+        /* Disable cursor on touch devices */
+        @media (pointer: coarse) {
+            .cursor-dot,
+            .cursor-follower {
                 display: none;
             }
-
-            .nav-brand-text {
-                font-size: 0.9375rem;
-            }
-
-            .nav-logo-small {
-                width: 28px;
-                height: 28px;
-            }
-
-            .logo {
-                margin-top: 4rem;
+            body {
+                cursor: auto;
             }
         }
+
+    
+        to { width: 11ch; }
+        }
+
+        }
+
+    
+        70%  { transform: scaleX(1.03); }
+            100% { transform: scaleX(1); }
+        }
+30%  { width: 11ch; }   /* finished typing */
+            55%  { width: 11ch; }   /* pause */
+            85%  { width: 0; }      /* delete */
+            100% { width: 0; }      /* pause */
+        }
+
+        @keyframes caretBlink {
+            50% { border-color: transparent; }
+        }
+
+    
+        /* Paint underline (scroll-activated) — brush stroke */
+        .paint-underline {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .paint-underline::after {
+            content: '';
+            position: absolute;
+            left: -0.12em;
+            right: -0.12em;
+            bottom: 0.10em;
+            height: 0.55em;
+            background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20600%2080%27%20preserveAspectRatio%3D%27none%27%3E%0A%3Cpath%20fill%3D%27white%27%20fill-opacity%3D%270.85%27%20d%3D%27M8%2C48%0AC40%2C42%2070%2C62%20102%2C52%0AC140%2C40%20170%2C62%20206%2C52%0AC250%2C38%20280%2C62%20320%2C50%0AC360%2C40%20390%2C62%20430%2C52%0AC470%2C40%20500%2C60%20536%2C50%0AC560%2C44%20578%2C54%20592%2C50%0AL592%2C68%0AC560%2C74%20520%2C60%20488%2C68%0AC450%2C76%20418%2C58%20380%2C68%0AC340%2C78%20312%2C58%20270%2C68%0AC230%2C78%20200%2C56%20160%2C68%0AC120%2C78%2090%2C56%2050%2C68%0AC30%2C74%2018%2C66%208%2C70%20Z%27/%3E%0A%3Cpath%20fill%3D%27white%27%20fill-opacity%3D%270.55%27%20d%3D%27M18%2C52%0AC60%2C46%2084%2C62%20120%2C54%0AC160%2C44%20186%2C64%20224%2C54%0AC264%2C42%20292%2C64%20332%2C52%0AC372%2C42%20400%2C62%20438%2C54%0AC480%2C46%20520%2C60%20582%2C54%0AL582%2C60%0AC520%2C66%20480%2C56%20440%2C62%0AC398%2C68%20372%2C54%20330%2C62%0AC292%2C70%20262%2C54%20222%2C62%0AC182%2C70%20156%2C54%20118%2C62%0AC80%2C70%2056%2C56%2018%2C62%20Z%27/%3E%0A%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            transform: rotate(-1deg);
+            opacity: 0.95;
+            z-index: -1;
+            clip-path: inset(0 100% 0 0);
+            filter: blur(0.15px);
+        }
+
+        .paint-underline.active::after {
+            animation: paintReveal 0.85s ease-out forwards;
+        }
+
+        @keyframes paintReveal {
+            0%   { clip-path: inset(0 100% 0 0); }
+            70%  { clip-path: inset(0 -3% 0 0); }
+            100% { clip-path: inset(0 0 0 0); }
+        }
+
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <a href="#" class="nav-brand">
-            <div class="nav-logo-small"></div>
-            <span class="nav-brand-text">Recovery Rooms</span>
-        </a>
-        <ul class="nav-menu">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#vision">Vision</a></li>
-            <li><a href="#account">Account</a></li>
-        </ul>
-    </nav>
+    <!-- Custom cursor -->
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-follower" aria-hidden="true"></div>
 
-    <!-- Animated background -->
+    <!-- Animated background with orbs -->
     <div class="bg-animation">
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
@@ -647,209 +750,236 @@
     <!-- Grid overlay -->
     <div class="grid-overlay"></div>
 
-    <!-- Custom cursor -->
-    <div class="cursor-follower"></div>
-    <div class="cursor-dot"></div>
-    
-    <div class="container">
-        <div class="logo">
-            <div class="logo-circle"></div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#hero" class="nav-brand">
+            <div class="nav-logo"></div>
+            <span>Recovery Rooms</span>
+        </a>
+        <div class="nav-links">
+            <a href="#story">Our Story</a>
+            <a href="#waitlist">Join Waitlist</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-logo">
+            <div class="hero-logo-circle"></div>
         </div>
         
         <h1><span class="gradient-text">Recovery.<br>Wellness.<br>Reimagined.</span></h1>
         
-        <p class="subtitle"><span class="typing-text" id="typingText"></span></p>
+        <p class="hero-subtitle">Coming Soon</p>
         
-        <p class="description">
-            A new era of holistic recovery and wellness. Experience transformation through innovation and care.
+        <p class="hero-description">
+            A new era of holistic Recovery and wellness. Experience transformation through innovation and care.
         </p>
+    </section>
+
+    <!-- Story Content -->
+    <div class="story" id="story">
+        <p>Movement used to be mandatory. Then it became optional. So we optimized it. Morning walks became ritual—steps, sunlight, discipline. Yoga followed—breath, balance, mobility. Then strength training, because muscle matters. Running for endurance. Pilates for control. Each era promised the breakthrough. And each delivered. For a while.</p>
         
-        <form class="notify-form" id="notifyForm">
-            <div class="input-wrapper">
-                <div class="input-group">
+        <p>Because effort was never the full equation.</p>
+        
+        <div class="space"></div>
+        
+        <p class="large-statement">The work breaks you down. <span class="highlight-word" id="highlight-recovery">Recovery</span> builds you up.</p>
+        
+        <div class="space"></div>
+        
+        <p>We learned how to push. But not how to restore. We treated recovery like an afterthought—stretch if you have time, sleep when you can, ice only when something breaks. Secondary. Indulgent. Nice to have.</p>
+        
+        <p>Without recovery, progress doesn't compound. It compresses. Week three feels harder than week one. Tightness becomes stiffness. Fatigue becomes injury. Consistency becomes burnout.</p>
+        
+        <p>We believe the next evolution isn't another training method.</p>
+        
+        <div class="space"></div>
+        
+        <p class="large-statement">It's <span id="recovery-text">Recovery</span><span class="logo-inline" id="logo-inline"></span></p>
+        
+        <div class="space"></div>
+        
+        <p>Finally taking its place as a pillar. Recovery isn't passive. It's not indulgent. Recovery is training. Blood flow restored. Stress hormones lowered. Nervous system reset. A signal your body understands: you're safe to rebuild.</p>
+        
+        <p>That's why we're building a dedicated recovery facility. Not a gym. Not a spa. Not a clinic. A space designed for compression therapy, contrast recovery, and deep rest.</p>
+        
+        <div class="space"></div>
+        
+        <p>The future of performance isn't just about pushing harder.</p>
+        
+        <p class="large-statement">It's about <span class="paint-underline" id="underline-recover">recovering</span> deeper.</p>
+        
+        <!-- Waitlist Section -->
+        <div class="waitlist" id="waitlist">
+            <h2>A new era of Recovery is here.</h2>
+            <p class="waitlist-subtitle">Invite only.</p>
+            <p class="waitlist-subtitle">Join the waitlist</p>
+            
+            <form class="waitlist-form" id="waitlistForm">
+                <div class="input-wrapper">
                     <input 
                         type="email" 
-                        id="email" 
                         placeholder="Enter your email" 
                         required
-                        aria-label="Email address"
+                        id="emailInput"
                     >
-                    <button type="submit">
-                        <span>Notify Me</span>
-                    </button>
+                    <button type="submit"><span>Notify Me</span></button>
                 </div>
+                <div class="success-message" id="successMessage">
+                    Thank you. We'll be in touch soon.
+                </div>
+            </form>
+            
+            <div class="social-links">
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">Contact</a>
             </div>
-            <div class="success-message" id="successMessage">
-                Thank you. We'll be in touch soon.
-            </div>
-        </form>
-        
-        <div class="social-links">
-            <a href="#" aria-label="Instagram">Instagram</a>
-            <a href="#" aria-label="LinkedIn">LinkedIn</a>
-            <a href="#" aria-label="Contact">Contact</a>
+            
+            <p style="margin-top: 2rem; font-size: 0.9375rem; color: #808080;">Founding access + early pricing.</p>
         </div>
     </div>
 
-    <script>
-        // Typing animation for "Coming Soon"
-        const typingText = document.getElementById('typingText');
-        const text = 'Coming Soon';
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingSpeed = 150;
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Recovery Rooms. The future of Recovery.</p>
+    </footer>
 
-        function typeEffect() {
-            if (!isDeleting && charIndex < text.length) {
-                // Typing
-                typingText.textContent = text.substring(0, charIndex + 1);
-                charIndex++;
-                typingSpeed = 150;
-            } else if (isDeleting && charIndex > 0) {
-                // Deleting
-                typingText.textContent = text.substring(0, charIndex - 1);
-                charIndex--;
-                typingSpeed = 100;
-            } else if (charIndex === text.length) {
-                // Finished typing, wait before deleting
-                isDeleting = true;
-                typingSpeed = 2000;
-            } else if (charIndex === 0 && isDeleting) {
-                // Finished deleting, wait before typing again
-                isDeleting = false;
-                typingSpeed = 500;
+    <script>
+
+        // Looping typewriter for "Coming Soon" (type -> pause -> delete -> pause)
+        const comingSoonEl = document.querySelector('.hero-subtitle');
+        if (comingSoonEl) {
+            const fullText = comingSoonEl.textContent.trim() || 'Coming Soon';
+            comingSoonEl.textContent = '';
+
+            let i = 0;
+            let deleting = false;
+
+            const typeSpeed = 110;
+            const deleteSpeed = 70;
+            const pauseAfterType = 900;
+            const pauseAfterDelete = 350;
+
+            function tick() {
+                if (!deleting) {
+                    i++;
+                    comingSoonEl.textContent = fullText.slice(0, i);
+                    if (i >= fullText.length) {
+                        deleting = true;
+                        setTimeout(tick, pauseAfterType);
+                        return;
+                    }
+                    setTimeout(tick, typeSpeed);
+                } else {
+                    i--;
+                    comingSoonEl.textContent = fullText.slice(0, Math.max(i, 0));
+                    if (i <= 0) {
+                        deleting = false;
+                        setTimeout(tick, pauseAfterDelete);
+                        return;
+                    }
+                    setTimeout(tick, deleteSpeed);
+                }
             }
 
-            setTimeout(typeEffect, typingSpeed);
+            // Start after the subtitle fades in
+            setTimeout(tick, 900);
         }
 
-        // Start typing animation after initial page load animation
-        setTimeout(() => {
-            typeEffect();
-        }, 1600);
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -15% 0px',
+            threshold: 0.1
+        };
 
-        // Custom cursor tracking
-        const cursorFollower = document.querySelector('.cursor-follower');
-        const cursorDot = document.querySelector('.cursor-dot');
-        
-        let mouseX = 0;
-        let mouseY = 0;
-        let followerX = 0;
-        let followerY = 0;
-        let dotX = 0;
-        let dotY = 0;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
 
-        // Track mouse position
-        document.addEventListener('mousemove', function(e) {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+        // Observe all paragraphs in story
+        document.querySelectorAll('.story p, .story .large-statement').forEach(el => {
+            observer.observe(el);
         });
 
-        // Smooth cursor follow animation
-        function animateCursor() {
-            // Smooth follow for the larger circle (slower)
-            const followerSpeed = 0.15;
-            followerX += (mouseX - followerX) * followerSpeed;
-            followerY += (mouseY - followerY) * followerSpeed;
-            
-            // Faster follow for the dot
-            const dotSpeed = 0.25;
-            dotX += (mouseX - dotX) * dotSpeed;
-            dotY += (mouseY - dotY) * dotSpeed;
-            
-            cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
-            cursorDot.style.transform = `translate(${dotX - 4}px, ${dotY - 4}px)`;
-            
-            requestAnimationFrame(animateCursor);
+        // Highlighter effect for "Recovery"
+        const highlightObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '-45% 0px -45% 0px',
+            threshold: 0
+        });
+
+        const highlightWord = document.getElementById('highlight-recovery');
+        if (highlightWord) {
+            highlightObserver.observe(highlightWord);
         }
-        
-        animateCursor();
 
-        // Cursor effect on interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, input');
-        
-        interactiveElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursorFollower.style.width = '60px';
-                cursorFollower.style.height = '60px';
-                cursorFollower.style.opacity = '0.5';
+        // Logo inline animation
+        const logoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.getElementById('logo-inline').classList.add('active');
+                }
             });
-            
-            element.addEventListener('mouseleave', () => {
-                cursorFollower.style.width = '40px';
-                cursorFollower.style.height = '40px';
-                cursorFollower.style.opacity = '1';
-            });
+        }, {
+            root: null,
+            rootMargin: '-45% 0px -45% 0px',
+            threshold: 0
         });
+
+        const recoveryText = document.getElementById('recovery-text');
+        if (recoveryText) {
+            logoObserver.observe(recoveryText);
+        }
+
+
+        // Paint underline effect for final "Recover"
+        const underlineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '-45% 0px -45% 0px',
+            threshold: 0
+        });
+
+        const underlineRecover = document.getElementById('underline-recover');
+        if (underlineRecover) {
+            underlineObserver.observe(underlineRecover);
+        }
 
         // Form handling
-        document.getElementById('notifyForm').addEventListener('submit', function(e) {
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('emailInput').value;
             const successMessage = document.getElementById('successMessage');
             
-            // Here you would typically send the email to your backend
             console.log('Email submitted:', email);
             
-            // Show success message
             successMessage.classList.add('show');
+            document.getElementById('emailInput').value = '';
             
-            // Clear the form
-            document.getElementById('email').value = '';
-            
-            // Hide success message after 5 seconds
             setTimeout(() => {
                 successMessage.classList.remove('show');
             }, 5000);
         });
-
-        // Create floating particles on mouse move
-        let particleTimeout;
-        document.addEventListener('mousemove', function(e) {
-            clearTimeout(particleTimeout);
-            particleTimeout = setTimeout(() => {
-                if (Math.random() > 0.8) {
-                    createParticle(e.clientX, e.clientY);
-                }
-            }, 50);
-        });
-
-        function createParticle(x, y) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = x + 'px';
-            particle.style.top = y + 'px';
-            document.body.appendChild(particle);
-            
-            const angle = Math.random() * Math.PI * 2;
-            const velocity = 1 + Math.random() * 2;
-            const lifetime = 1000 + Math.random() * 1000;
-            
-            let opacity = 1;
-            const startTime = Date.now();
-            
-            function animate() {
-                const elapsed = Date.now() - startTime;
-                const progress = elapsed / lifetime;
-                
-                if (progress >= 1) {
-                    particle.remove();
-                    return;
-                }
-                
-                const currentX = parseFloat(particle.style.left);
-                const currentY = parseFloat(particle.style.top);
-                
-                particle.style.left = (currentX + Math.cos(angle) * velocity) + 'px';
-                particle.style.top = (currentY + Math.sin(angle) * velocity) + 'px';
-                particle.style.opacity = 1 - progress;
-                
-                requestAnimationFrame(animate);
-            }
-            
-            animate();
-        }
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -858,11 +988,46 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({
-                        behavior: 'smooth'
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
     </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const dot = document.querySelector('.cursor-dot');
+        const ring = document.querySelector('.cursor-follower');
+        if (!dot || !ring) return;
+
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+        let initialized = false;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            dot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+
+            if (!initialized) {
+                ringX = mouseX;
+                ringY = mouseY;
+                initialized = true;
+            }
+        });
+
+        function animate() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            ring.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
+            requestAnimationFrame(animate);
+        }
+        animate();
+    });
+    </script>
+
 </body>
 </html>
