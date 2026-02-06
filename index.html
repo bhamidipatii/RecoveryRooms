@@ -222,7 +222,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            padding-top: 8rem;
             gap: 2rem;
             transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 99;
@@ -255,7 +256,6 @@
             border-radius: 8px;
             opacity: 0;
             transition: opacity 0.3s ease;
-            backdrop-filter: blur(10px);
         }
 
         .nav-links a:hover {
@@ -594,33 +594,38 @@
         .input-wrapper {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
+            border-radius: 50px;
             overflow: hidden;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
+            padding: 0.5rem;
         }
 
         .input-wrapper:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1);
         }
 
         .input-wrapper:focus-within {
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
         }
 
         .waitlist-form input {
-            padding: 1.125rem 1.5rem;
+            flex: 1;
+            padding: 1rem 1.5rem;
             font-family: inherit;
             font-size: 1rem;
             border: none;
             background: transparent;
             color: #ffffff;
             outline: none;
-            text-align: center;
+            text-align: left;
         }
 
         .waitlist-form input::placeholder {
@@ -628,17 +633,23 @@
         }
 
         .waitlist-form button {
-            padding: 1.125rem 2rem;
+            padding: 1rem 2rem;
             font-family: inherit;
             font-size: 1rem;
             font-weight: 500;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
             color: #000000;
             border: none;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            white-space: nowrap;
+            flex-shrink: 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.4);
         }
 
         .waitlist-form button::before {
@@ -648,18 +659,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
         .waitlist-form button:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 1);
             transform: scale(1.02);
-            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.25), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.6),
+                        0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .waitlist-form button:active {
+            transform: scale(0.98);
         }
 
         .waitlist-form button:hover::before {
@@ -685,46 +699,44 @@
             display: block;
         }
 
-        /* Social Links */
-        .social-links {
+        /* Floating Social Buttons - Bottom Right */
+        .floating-social {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
             display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            margin-top: 2rem;
-            font-size: 0.9375rem;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
         }
 
-        .social-links a {
-            color: #86868b;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-        }
-
-        .social-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .social-button {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #ffffff;
         }
 
-        .social-links a:hover::before {
-            opacity: 1;
+        .social-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+        }
+
+        .social-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
         }
 
         /* Footer */
@@ -736,6 +748,29 @@
             color: #808080;
             font-size: 0.875rem;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #808080;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-copyright {
+            color: #606060;
         }
 
         /* Mobile */
@@ -778,9 +813,40 @@
                 padding: 3rem 1.5rem;
             }
 
-            .social-links {
+            .floating-social {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                gap: 0.75rem;
+            }
+
+            .social-button {
+                width: 48px;
+                height: 48px;
+            }
+
+            .social-button svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .input-wrapper {
                 flex-direction: column;
+                padding: 0.75rem;
+                gap: 0.75rem;
+            }
+
+            .waitlist-form input {
+                text-align: center;
+                padding: 1rem;
+            }
+
+            .waitlist-form button {
+                width: 100%;
+            }
+
+            .footer-links {
                 gap: 1rem;
+                font-size: 0.8125rem;
             }
         }
 
@@ -792,6 +858,11 @@
 
             .nav {
                 justify-content: space-between;
+                padding: 1.5rem 3rem;
+            }
+
+            .nav-brand {
+                margin-right: auto;
             }
 
             .nav-links {
@@ -801,14 +872,24 @@
                 height: auto;
                 background: transparent;
                 flex-direction: row;
-                gap: 2rem;
+                gap: 0.5rem;
                 border: none;
+                padding-top: 0;
             }
 
             .nav-links a {
                 font-size: 0.9375rem;
-                padding: 0.5rem 1rem;
+                padding: 0.625rem 1.25rem;
                 color: #86868b;
+                font-weight: 400;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links a:hover {
+                color: #ffffff;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
             }
         }
     
@@ -983,10 +1064,30 @@
         <div class="nav-links" id="navLinks">
             <a href="#story">Our Story</a>
             <a href="#waitlist">Join Waitlist</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
     
     <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Floating Social Buttons -->
+    <div class="floating-social">
+        <a href="https://x.com" target="_blank" class="social-button" aria-label="X (Twitter)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="social-button" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="social-button" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+        </a>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
@@ -1039,39 +1140,36 @@
         
         <!-- Waitlist Section -->
         <div class="waitlist" id="waitlist">
-            <h2>A new era of Recovery is here.</h2>
+            <h2>Recovery is here.</h2>
             <br>
             <p class="waitlist-subtitle" style="text-align: center;">Invite only.</p>
-            <p class="waitlist-subtitle" style="text-align: center;">Join the waitlist</p>
             
             <form class="waitlist-form" id="waitlistForm">
                 <div class="input-wrapper">
                     <input 
                         type="email" 
-                        placeholder="Enter your email" 
+                        placeholder="Email address" 
                         required
                         id="emailInput"
                     >
-                    <button type="submit"><span>Notify Me</span></button>
+                    <button type="submit"><span>Begin Recovery</span></button>
                 </div>
                 <div class="success-message" id="successMessage">
                     Thank you. We'll be in touch soon.
                 </div>
             </form>
-            
-            <div class="social-links">
-                <a href="#" target="_blank">Instagram</a>
-                <a href="#" target="_blank">LinkedIn</a>
-                <a href="#" target="_blank">Contact</a>
-            </div>
-            
-            <p style="margin-top: 2rem; font-size: 0.9375rem; color: #808080;">Founding access + early pricing.</p>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 Recovery Rooms. The future of Recovery.</p>
+        <div class="footer-links">
+            <a href="#terms">Terms & Conditions</a>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#cookies">Cookie Policy</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <p class="footer-copyright">© 2026 Recovery Rooms. The future of Recovery.</p>
     </footer>
 
     <script>
