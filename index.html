@@ -706,6 +706,33 @@
             z-index: 100;
         }
 
+        /* Stack buttons on top of each other by default */
+        .floating-social:not(.expanded) .social-button:not(:first-child) {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.8);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* Expanded state - show all buttons */
+        .floating-social.expanded .social-button {
+            position: relative;
+            opacity: 1;
+            pointer-events: all;
+            transform: scale(1);
+        }
+
+        .floating-social.expanded .social-button:nth-child(2) {
+            transition-delay: 0.05s;
+        }
+
+        .floating-social.expanded .social-button:nth-child(3) {
+            transition-delay: 0.1s;
+        }
+
         .social-button {
             width: 56px;
             height: 56px;
@@ -720,6 +747,7 @@
             transition: all 0.3s ease;
             text-decoration: none;
             color: #ffffff;
+            position: relative;
         }
 
         .social-button:hover {
@@ -733,6 +761,30 @@
             width: 24px;
             height: 24px;
             fill: #ffffff;
+        }
+
+        /* Add a subtle indicator on the first button when collapsed */
+        .floating-social:not(.expanded) .social-button:first-child::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
         }
 
         /* Footer */
@@ -1251,6 +1303,27 @@
                     animate();
                 }, 2000);
             }, 1400);
+        }
+
+        // Social buttons toggle
+        const floatingSocial = document.querySelector('.floating-social');
+        const firstSocialButton = document.querySelector('.social-button:first-child');
+        
+        if (floatingSocial && firstSocialButton) {
+            // Toggle on click of first button
+            firstSocialButton.addEventListener('click', function(e) {
+                if (!floatingSocial.classList.contains('expanded')) {
+                    e.preventDefault();
+                    floatingSocial.classList.add('expanded');
+                }
+            });
+            
+            // Close when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!floatingSocial.contains(e.target) && floatingSocial.classList.contains('expanded')) {
+                    floatingSocial.classList.remove('expanded');
+                }
+            });
         }
 
         // Mobile menu toggle
