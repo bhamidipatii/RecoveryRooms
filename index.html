@@ -369,6 +369,12 @@
             animation: shimmer 3s ease-in-out infinite;
         }
 
+        /* Override gradient for word-cycle to ensure visibility */
+        .word-cycle {
+            -webkit-text-fill-color: #ffffff;
+            background: none;
+        }
+
         @keyframes shimmer {
             0%, 100% {
                 background-position: 0% 50%;
@@ -378,22 +384,57 @@
             }
         }
 
+        /* Animated word cycling styles */
+        .word-cycle {
+            display: inline-block;
+            position: relative;
+            -webkit-text-fill-color: #ffffff !important;
+            color: #ffffff !important;
+            background: none !important;
+        }
+
+        .word-cycle .static-part {
+            display: inline;
+            color: #ffffff;
+        }
+
+        .word-cycle .dynamic-part {
+            display: inline;
+            color: #ffffff;
+        }
+
+        .word-cycle .dynamic-part span {
+            display: inline;
+            color: #ffffff;
+        }
+
+        .word-cycle .dynamic-part span.selected {
+            background: #ffffff !important;
+            color: #000000 !important;
+            -webkit-text-fill-color: #000000 !important;
+            padding: 0.05em 0.1em;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        .word-cycle .dynamic-part .char-selected {
+            background: #ffffff !important;
+            color: #000000 !important;
+            -webkit-text-fill-color: #000000 !important;
+            padding: 0.05em 0.1em;
+            display: inline-block;
+            line-height: 1;
+        }
+
         .hero-subtitle {
             font-size: clamp(1.125rem, 3vw, 1.5rem);
             font-weight: 400;
             color: #86868b;
-
-            /* one-line-ish spacing before and after */
             margin-top: 1.25rem;
             margin-bottom: 2.75rem;
-
             opacity: 0;
-            animation: fadeInUp 1s ease-out 0.6s forwards, caretBlink 0.7s step-end 0.9s infinite;
-
+            animation: fadeInUp 1s ease-out 0.6s forwards;
             display: inline-block;
-            white-space: nowrap;
-            border-right: 2px solid rgba(255, 255, 255, 0.35);
-            padding-right: 2px;
         }
 
         .hero-description {
@@ -514,51 +555,6 @@
         /* Font changing animation for Recovery word - messy handwritten style */
         .font-morph {
             display: inline-block;
-            /* font-family: 'Comic Sans MS', 'Chalkboard SE', 'Bradley Hand', cursive; */
-            /* animation: messyHandwriting 2s infinite; */
-        }
-
-        @keyframes messyHandwriting {
-            0%, 10% {
-                transform: rotate(-2deg) skew(-1deg) translateY(-1px);
-                font-weight: 700;
-            }
-            10%, 20% {
-                transform: rotate(1.5deg) skew(1deg) translateY(1px);
-                font-weight: 600;
-            }
-            20%, 30% {
-                transform: rotate(-1deg) skew(-0.5deg) translateY(-0.5px);
-                font-weight: 700;
-            }
-            30%, 40% {
-                transform: rotate(2deg) skew(1.5deg) translateY(0.5px);
-                font-weight: 600;
-            }
-            40%, 50% {
-                transform: rotate(-1.5deg) skew(-1deg) translateY(1px);
-                font-weight: 700;
-            }
-            50%, 60% {
-                transform: rotate(1deg) skew(0.5deg) translateY(-1px);
-                font-weight: 600;
-            }
-            60%, 70% {
-                transform: rotate(-2deg) skew(-1.5deg) translateY(0.5px);
-                font-weight: 700;
-            }
-            70%, 80% {
-                transform: rotate(1.5deg) skew(1deg) translateY(-0.5px);
-                font-weight: 600;
-            }
-            80%, 90% {
-                transform: rotate(-1deg) skew(-0.5deg) translateY(1px);
-                font-weight: 700;
-            }
-            90%, 100% {
-                transform: rotate(-2deg) skew(-1deg) translateY(-1px);
-                font-weight: 700;
-            }
         }
 
         /* Waitlist Section */
@@ -893,8 +889,7 @@
             }
         }
     
-        /* Hide default cursor on desktop */
-                /* Cursor trail */
+        /* Cursor trail */
         .cursor-follower {
             position: fixed;
             width: 40px;
@@ -933,27 +928,6 @@
             }
         }
 
-    
-        to { width: 11ch; }
-        }
-
-        }
-
-    
-        70%  { transform: scaleX(1.03); }
-            100% { transform: scaleX(1); }
-        }
-30%  { width: 11ch; }   /* finished typing */
-            55%  { width: 11ch; }   /* pause */
-            85%  { width: 0; }      /* delete */
-            100% { width: 0; }      /* pause */
-        }
-
-        @keyframes caretBlink {
-            50% { border-color: transparent; }
-        }
-
-    
         /* Red highlighter effect for "while" */
         .circle-word {
             position: relative;
@@ -1095,9 +1069,15 @@
             <div class="hero-logo-circle"></div>
         </div>
         
-        <h1><span class="gradient-text">Recovery.<br>Reimagined.</span></h1>
+        <h1>
+            <span class="gradient-text">Recovery.<br>
+                <span class="word-cycle">
+                    <span class="static-part">Re</span><span class="dynamic-part" id="animated-suffix"></span>
+                </span>
+            </span>
+        </h1>
         
-        <p class="hero-subtitle">Coming Soon</p>
+        <p class="hero-subtitle">Launching soon in your city</p>
         
         <p class="hero-description">
             A new era of holistic Recovery and wellness. Experience transformation through innovation and care.
@@ -1173,45 +1153,104 @@
     </footer>
 
     <script>
-
-        // Looping typewriter for "Coming Soon" (type -> pause -> delete -> pause)
-        const comingSoonEl = document.querySelector('.hero-subtitle');
-        if (comingSoonEl) {
-            const fullText = comingSoonEl.textContent.trim() || 'Coming Soon';
-            comingSoonEl.textContent = '';
-
-            let i = 0;
-            let deleting = false;
-
-            const typeSpeed = 110;
-            const deleteSpeed = 70;
-            const pauseAfterType = 900;
-            const pauseAfterDelete = 350;
-
-            function tick() {
-                if (!deleting) {
-                    i++;
-                    comingSoonEl.textContent = fullText.slice(0, i);
-                    if (i >= fullText.length) {
-                        deleting = true;
-                        setTimeout(tick, pauseAfterType);
-                        return;
-                    }
-                    setTimeout(tick, typeSpeed);
+        // Re-word cycling animation: Reimagined → Redesigned → Refined
+        // Animation: type suffix → pause → select chars backwards → delete → type next suffix
+        const animatedSuffixEl = document.getElementById('animated-suffix');
+        
+        if (animatedSuffixEl) {
+            const suffixes = ['imagined.', 'designed.', 'fined.'];
+            let currentIndex = 0;
+            let currentText = '';
+            let phase = 'typing'; // 'typing', 'paused', 'selecting', 'deleting'
+            let selectionIndex = 0; // how many chars from the end are selected
+            
+            const typeSpeed = 100;
+            const selectSpeed = 80;
+            const deleteSpeed = 50;
+            const pauseAfterType = 1500;
+            const pauseAfterSelect = 200;
+            
+            function updateDisplay() {
+                if (phase === 'selecting' && selectionIndex > 0) {
+                    // Show unselected part + selected part with highlighting
+                    const unselected = currentText.substring(0, currentText.length - selectionIndex);
+                    const selected = currentText.substring(currentText.length - selectionIndex);
+                    animatedSuffixEl.innerHTML = unselected + '<span class="char-selected">' + selected + '</span>';
                 } else {
-                    i--;
-                    comingSoonEl.textContent = fullText.slice(0, Math.max(i, 0));
-                    if (i <= 0) {
-                        deleting = false;
-                        setTimeout(tick, pauseAfterDelete);
-                        return;
-                    }
-                    setTimeout(tick, deleteSpeed);
+                    animatedSuffixEl.textContent = currentText;
                 }
             }
-
-            // Start after the subtitle fades in
-            setTimeout(tick, 900);
+            
+            function animate() {
+                if (phase === 'typing') {
+                    const targetSuffix = suffixes[currentIndex];
+                    if (currentText.length < targetSuffix.length) {
+                        currentText += targetSuffix[currentText.length];
+                        updateDisplay();
+                        setTimeout(animate, typeSpeed);
+                    } else {
+                        // Finished typing, pause then start selecting
+                        phase = 'paused';
+                        setTimeout(() => {
+                            phase = 'selecting';
+                            selectionIndex = 0;
+                            animate();
+                        }, pauseAfterType);
+                    }
+                }
+                else if (phase === 'selecting') {
+                    // Select characters from right to left
+                    // Stop before selecting 'e' (which would be at position 0)
+                    // For "imagined." that's 9 chars, select 8 (leave the period and one char? No, we want to leave nothing)
+                    // Actually, we want to select everything except we stop just before we'd select past the beginning
+                    // "imagined." has 9 characters
+                    // We select: d, e, n, i, g, a, m, i = 8 characters (stop before selecting all)
+                    // Wait, the user said "once it almost reaches 'e' in 'Re'"
+                    // So we select everything in the suffix
+                    
+                    const maxSelection = currentText.length; // Select all characters in the suffix
+                    
+                    if (selectionIndex < maxSelection) {
+                        selectionIndex++;
+                        updateDisplay();
+                        setTimeout(animate, selectSpeed);
+                    } else {
+                        // Finished selecting, pause then delete
+                        phase = 'paused';
+                        setTimeout(() => {
+                            phase = 'deleting';
+                            animate();
+                        }, pauseAfterSelect);
+                    }
+                }
+                else if (phase === 'deleting') {
+                    // Delete all at once since it's already selected
+                    currentText = '';
+                    selectionIndex = 0;
+                    animatedSuffixEl.textContent = '';
+                    
+                    // Move to next word
+                    currentIndex = (currentIndex + 1) % suffixes.length;
+                    phase = 'typing';
+                    
+                    setTimeout(animate, deleteSpeed);
+                }
+            }
+            
+            // Start the animation after h1 fades in
+            setTimeout(() => {
+                currentText = suffixes[0];
+                animatedSuffixEl.textContent = currentText;
+                currentIndex = 0;
+                
+                // Wait a bit, then start the cycle
+                setTimeout(() => {
+                    currentText = '';
+                    animatedSuffixEl.textContent = '';
+                    phase = 'typing';
+                    animate();
+                }, 2000);
+            }, 1400);
         }
 
         // Mobile menu toggle
@@ -1229,7 +1268,6 @@
         menuToggle.addEventListener('click', toggleMenu);
         menuOverlay.addEventListener('click', toggleMenu);
 
-        // Close menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLinks.classList.contains('active')) {
@@ -1253,7 +1291,6 @@
             });
         }, observerOptions);
 
-        // Observe all paragraphs in story
         document.querySelectorAll('.story p, .story .large-statement').forEach(el => {
             observer.observe(el);
         });
@@ -1294,8 +1331,7 @@
             logoObserver.observe(recoveryText);
         }
 
-
-        // Hand-drawn underline effect for final "recovering" - triggers at 50% screen
+        // Hand-drawn underline effect
         const underlineObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1373,7 +1409,6 @@
         let ringX = 0, ringY = 0;
         let initialized = false;
 
-        // Mouse events for desktop
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -1387,7 +1422,6 @@
             }
         });
 
-        // Touch events for mobile
         document.addEventListener('touchmove', (e) => {
             if (e.touches.length > 0) {
                 mouseX = e.touches[0].clientX;
