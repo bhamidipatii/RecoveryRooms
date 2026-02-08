@@ -1289,19 +1289,12 @@
                 }
             }
             
-            // Start the animation after h1 fades in
+            // Start the animation after h1 fades in - begin typing immediately
             setTimeout(() => {
-                currentText = suffixes[0];
-                animatedSuffixEl.textContent = currentText;
+                phase = 'typing';
+                currentText = '';
                 currentIndex = 0;
-                
-                // Wait a bit, then start the cycle
-                setTimeout(() => {
-                    currentText = '';
-                    animatedSuffixEl.textContent = '';
-                    phase = 'typing';
-                    animate();
-                }, 2000);
+                animate();
             }, 1400);
         }
 
