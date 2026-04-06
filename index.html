@@ -532,12 +532,12 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
 }
 
 /* ── THEME TOGGLE BUTTON ── */
-.theme-toggle{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid rgba(255,255,255,.15);border-radius:50%;background:rgba(255,255,255,.05);cursor:pointer;color:rgba(255,255,255,.7);transition:background .3s,border-color .3s,color .3s;flex-shrink:0;padding:0;position:absolute;right:5.5rem;top:50%;transform:translateY(-50%)}
+.theme-toggle{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid rgba(255,255,255,.15);border-radius:50%;background:rgba(255,255,255,.05);cursor:pointer;color:rgba(255,255,255,.7);transition:background .3s,border-color .3s,color .3s;flex-shrink:0;padding:0;position:absolute;right:5rem;top:50%;transform:translateY(-50%);z-index:101}
 .theme-toggle:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
 .theme-toggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .theme-toggle .icon-sun{display:none}
 .theme-toggle .icon-moon{display:block}
-@media(max-width:768px){.theme-toggle{right:5rem}}
+@media(max-width:768px){.theme-toggle{right:4rem}}
 @media(min-width:769px){.theme-toggle{position:static;transform:none;margin-left:.75rem}}
 
 /* ── LIGHT MODE ── */
@@ -876,16 +876,16 @@ body[data-theme="light"] #pitch-page .zone-img-wrap img{filter:brightness(1)}
 <div class="grid-overlay"></div>
 <nav class="nav">
   <a href="#hero" class="nav-brand"><div class="nav-logo"></div><span>Recovery Rooms</span></a>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
   <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
   <div class="nav-links" id="navLinks">
     <a href="#story">Our Story</a>
     <a href="#waitlist">Join Waitlist</a>
     <a href="#contact">Contact</a>
   </div>
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-  </button>
 </nav>
 <div class="menu-overlay" id="menuOverlay"></div>
 <div class="floating-social">
@@ -1011,18 +1011,14 @@ document.querySelectorAll("a[href^='#']").forEach(function(a){
 });
 
 // ── THEME TOGGLE ──
-(function(){
-  var saved=localStorage.getItem("rr-theme");
-  if(saved==="light")document.body.setAttribute("data-theme","light");
-  var btn=document.getElementById("themeToggle");
-  if(btn){
-    btn.addEventListener("click",function(){
-      var isLight=document.body.getAttribute("data-theme")==="light";
-      if(isLight){document.body.removeAttribute("data-theme");localStorage.setItem("rr-theme","dark");}
-      else{document.body.setAttribute("data-theme","light");localStorage.setItem("rr-theme","light");}
-    });
-  }
-})();
+var themeBtn=document.getElementById("themeToggle");
+var savedTheme=localStorage.getItem("rr-theme")||"dark";
+if(savedTheme==="light")document.body.setAttribute("data-theme","light");
+themeBtn.addEventListener("click",function(){
+  var isLight=document.body.getAttribute("data-theme")==="light";
+  document.body.setAttribute("data-theme",isLight?"dark":"light");
+  localStorage.setItem("rr-theme",isLight?"dark":"light");
+});
 </script>
 <script>
 // ── PITCH OPEN/CLOSE ──
