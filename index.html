@@ -531,6 +531,250 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
   #pitch-page .solution-images { grid-template-columns: 1fr; }
 }
 
+/* ── THEME TOGGLE BUTTON ── */
+.theme-toggle{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid rgba(255,255,255,.15);border-radius:50%;background:rgba(255,255,255,.05);cursor:pointer;color:rgba(255,255,255,.7);transition:background .3s,border-color .3s,color .3s;flex-shrink:0;padding:0;position:absolute;right:5.5rem;top:50%;transform:translateY(-50%)}
+.theme-toggle:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+.theme-toggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.theme-toggle .icon-sun{display:none}
+.theme-toggle .icon-moon{display:block}
+@media(max-width:768px){.theme-toggle{right:5rem}}
+@media(min-width:769px){.theme-toggle{position:static;transform:none;margin-left:.75rem}}
+
+/* ── LIGHT MODE ── */
+body[data-theme="light"]{background:#f5f5f5;color:#0a0a0a}
+body[data-theme="light"] ::selection{background:#000;color:#fff}
+body[data-theme="light"] ::-moz-selection{background:#000;color:#fff}
+body[data-theme="light"] .orb1{background:#c0c0c0 !important}
+body[data-theme="light"] .orb2{background:#d0d0d0 !important}
+body[data-theme="light"] .orb3{background:#c8c8c8 !important}
+body[data-theme="light"] .grid-overlay{background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px)}
+body[data-theme="light"] .cursor-dot{background:rgba(0,0,0,.75)}
+body[data-theme="light"] .cursor-follower{border-color:rgba(0,0,0,.35)}
+body[data-theme="light"] .nav{background:rgba(245,245,245,.88);border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] .nav-brand{color:#0a0a0a}
+body[data-theme="light"] .nav-logo{border-color:#0a0a0a}
+body[data-theme="light"] .nav-brand:hover{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.12)}
+body[data-theme="light"] .nav-links{background:rgba(245,245,245,.98);border-left-color:rgba(0,0,0,.07)}
+body[data-theme="light"] .nav-links a{color:#555}
+body[data-theme="light"] .nav-links a:hover{color:#0a0a0a;background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+body[data-theme="light"] .menu-toggle span{background:#0a0a0a}
+body[data-theme="light"] .menu-overlay{background:rgba(255,255,255,.7)}
+body[data-theme="light"] .theme-toggle{border-color:rgba(0,0,0,.15);background:rgba(0,0,0,.05);color:rgba(0,0,0,.6)}
+body[data-theme="light"] .theme-toggle:hover{background:rgba(0,0,0,.1);border-color:rgba(0,0,0,.25);color:#000}
+body[data-theme="light"] .theme-toggle .icon-sun{display:block}
+body[data-theme="light"] .theme-toggle .icon-moon{display:none}
+body[data-theme="light"] .announce-pill{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12)}
+body[data-theme="light"] .announce-pill:hover{background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.2)}
+body[data-theme="light"] .announce-pill::before{background:linear-gradient(90deg,transparent,rgba(0,0,0,.04) 30%,rgba(0,0,0,.1) 50%,rgba(0,0,0,.04) 70%,transparent)}
+body[data-theme="light"] .announce-pill-badge{background:#0a0a0a;color:#fff}
+body[data-theme="light"] .announce-pill-text{color:rgba(0,0,0,.55)}
+body[data-theme="light"] .announce-pill-arrow{color:rgba(0,0,0,.35)}
+body[data-theme="light"] .announce-pill:hover .announce-pill-arrow{color:rgba(0,0,0,.7)}
+body[data-theme="light"] .hero-logo-circle{border-color:#0a0a0a}
+body[data-theme="light"] .gradient-text{background:linear-gradient(135deg,#0a0a0a 0%,#777 100%);-webkit-background-clip:text;background-clip:text}
+body[data-theme="light"] .word-cycle{-webkit-text-fill-color:#0a0a0a !important;color:#0a0a0a !important;background:none !important}
+body[data-theme="light"] .word-cycle .static-part,
+body[data-theme="light"] .word-cycle .dynamic-part,
+body[data-theme="light"] .word-cycle .dynamic-part span{color:#0a0a0a}
+body[data-theme="light"] .word-cycle .dynamic-part span.selected,
+body[data-theme="light"] .word-cycle .dynamic-part .char-selected{background:#0a0a0a !important;color:#fff !important;-webkit-text-fill-color:#fff !important}
+body[data-theme="light"] .hero-subtitle{color:#777}
+body[data-theme="light"] .hero-description{color:#555}
+body[data-theme="light"] .story p{color:#2a2a2a}
+body[data-theme="light"] .large-statement{color:#0a0a0a}
+body[data-theme="light"] .waitlist{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.07)}
+body[data-theme="light"] .waitlist h2{color:#0a0a0a}
+body[data-theme="light"] .waitlist-subtitle{color:#666}
+body[data-theme="light"] .input-wrapper{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.12)}
+body[data-theme="light"] .input-wrapper:hover{background:rgba(0,0,0,.07);border-color:rgba(0,0,0,.18);box-shadow:0 4px 24px rgba(0,0,0,.08)}
+body[data-theme="light"] .input-wrapper:focus-within{background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.25);box-shadow:0 8px 32px rgba(0,0,0,.12)}
+body[data-theme="light"] .waitlist-form input{color:#0a0a0a}
+body[data-theme="light"] .waitlist-form input::placeholder{color:#999}
+body[data-theme="light"] .waitlist-form button{background:rgba(0,0,0,.88);color:#fff}
+body[data-theme="light"] .waitlist-form button:hover{background:#000}
+body[data-theme="light"] .success-message{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1);color:#0a0a0a}
+body[data-theme="light"] .floating-social .social-button{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.12);color:#0a0a0a}
+body[data-theme="light"] .floating-social .social-button:hover{background:rgba(0,0,0,.1);border-color:rgba(0,0,0,.2)}
+body[data-theme="light"] .floating-social .social-button svg{fill:#0a0a0a}
+body[data-theme="light"] footer{border-top-color:rgba(0,0,0,.07);color:#555}
+body[data-theme="light"] .footer-links a{color:#777}
+body[data-theme="light"] .footer-links a:hover{color:#0a0a0a}
+body[data-theme="light"] .footer-copyright{color:#999}
+
+/* ── LIGHT MODE — PITCH PAGE ── */
+body[data-theme="light"] #pitch-page{background:#f5f5f5}
+body[data-theme="light"] #progress{background:rgba(0,0,0,0.35)}
+body[data-theme="light"] .pitch-back{background:rgba(245,245,245,.88);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.5)}
+body[data-theme="light"] .pitch-back:hover{color:#0a0a0a;border-color:rgba(0,0,0,.3)}
+
+/* Lock screen */
+body[data-theme="light"] #lock{background:#f5f5f5}
+body[data-theme="light"] .lock-circle{border-color:#0a0a0a}
+body[data-theme="light"] .lock-name{color:#0a0a0a}
+body[data-theme="light"] .lock-sub{color:#777}
+body[data-theme="light"] .lock-dot{border-color:rgba(0,0,0,.15)}
+body[data-theme="light"] .lock-dot.filled{background:#0a0a0a;border-color:#0a0a0a}
+body[data-theme="light"] .lock-btn{border-color:rgba(0,0,0,.08);background:rgba(0,0,0,.04);color:#0a0a0a}
+body[data-theme="light"] .lock-btn:hover{background:rgba(0,0,0,.09);border-color:rgba(0,0,0,.18)}
+
+/* Pitch nav */
+body[data-theme="light"] #pitch-page .nav{background:rgba(245,245,245,.88);border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .nav-label{color:#777}
+body[data-theme="light"] #pitch-page .nav-cta a{color:#777}
+body[data-theme="light"] #pitch-page .nav-cta a:hover{color:#0a0a0a;background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+
+/* Sections & layout borders */
+body[data-theme="light"] #pitch-page section{border-bottom-color:rgba(0,0,0,.06)}
+body[data-theme="light"] #pitch-page .stat-row{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .stat-item{border-right-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .zone-list{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .zone-card{border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .tw-item{border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .tw-item:first-child{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .proof-grid{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .proof-card{border-right-color:rgba(0,0,0,.07);border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .market-matrix{border-top-color:rgba(0,0,0,.07);border-left-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .mstat{border-right-color:rgba(0,0,0,.07);border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .market-quote{color:#666;border-top-color:rgba(0,0,0,.07);border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .comp-list .comp-row{border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .comp-row:first-child{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .comp-row.us-row{background:rgba(0,0,0,.03);border-top-color:rgba(0,0,0,.09);border-bottom-color:rgba(0,0,0,.09)}
+body[data-theme="light"] #pitch-page .diff-grid{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .diff-card{border-right-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .svc-grid .svc-card{border-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .rev-row{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .rev-card{border-right-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .pricing-grid{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .price-col{border-right-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .price-note{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .fund-row{border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .fund-row:first-child{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .timeline{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .tl-item{border-right-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .contact-block{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .closing-line{color:rgba(0,0,0,.5);border-bottom-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .scenarios{border-top-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .sc{border-right-color:rgba(0,0,0,.07)}
+body[data-theme="light"] #pitch-page .two-col .col-label{color:#777}
+body[data-theme="light"] #pitch-page footer{border-top-color:rgba(0,0,0,.06)}
+body[data-theme="light"] #pitch-page .sec-num{color:rgba(0,0,0,.1)}
+
+/* Typography */
+body[data-theme="light"] #pitch-page .eyebrow{color:#777}
+body[data-theme="light"] #pitch-page .display{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .display em{color:#666}
+body[data-theme="light"] #pitch-page .body-copy,
+body[data-theme="light"] #pitch-page .zone-desc,
+body[data-theme="light"] #pitch-page .tw-body,
+body[data-theme="light"] #pitch-page .comp-desc,
+body[data-theme="light"] #pitch-page .diff-body,
+body[data-theme="light"] #pitch-page .svc-p,
+body[data-theme="light"] #pitch-page .phase-note,
+body[data-theme="light"] #pitch-page .rev-desc,
+body[data-theme="light"] #pitch-page .price-includes,
+body[data-theme="light"] #pitch-page .fin-rl,
+body[data-theme="light"] #pitch-page .fund-label,
+body[data-theme="light"] #pitch-page .funds-note,
+body[data-theme="light"] #pitch-page .sc-note,
+body[data-theme="light"] #pitch-page .tl-event,
+body[data-theme="light"] #pitch-page .contact-info,
+body[data-theme="light"] #pitch-page .mstat-l,
+body[data-theme="light"] #pitch-page .stat-l,
+body[data-theme="light"] #pitch-page .proof-val-label{color:#555}
+body[data-theme="light"] #pitch-page .stat-n{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .zone-n{color:rgba(0,0,0,.25)}
+body[data-theme="light"] #pitch-page .zone-title{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .pill{color:#555;border-color:rgba(0,0,0,.1)}
+body[data-theme="light"] #pitch-page .tw-n{color:rgba(0,0,0,.25)}
+body[data-theme="light"] #pitch-page .tw-title{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .tw-tag{color:rgba(0,0,0,.35)}
+body[data-theme="light"] #pitch-page .proof-card:hover{background:rgba(0,0,0,.02)}
+body[data-theme="light"] #pitch-page .proof-name{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .proof-loc{color:#777}
+body[data-theme="light"] #pitch-page .proof-val{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .proof-badge{color:#0a0a0a;border-color:rgba(0,0,0,.3)}
+body[data-theme="light"] #pitch-page .mstat-n{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .comp-name{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .comp-sub{color:#777}
+body[data-theme="light"] #pitch-page .comp-badge{color:#777;border-color:rgba(0,0,0,.1)}
+body[data-theme="light"] #pitch-page .comp-badge.us{color:#0a0a0a;border-color:rgba(0,0,0,.35)}
+body[data-theme="light"] #pitch-page .ws-statement{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .ws-statement em{color:#666}
+body[data-theme="light"] #pitch-page .diff-n{color:rgba(0,0,0,.25)}
+body[data-theme="light"] #pitch-page .diff-title{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .diff-body em{color:#666}
+body[data-theme="light"] #pitch-page .aqi-block{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.08)}
+body[data-theme="light"] #pitch-page .aqi-line{border-bottom-color:rgba(0,0,0,.06)}
+body[data-theme="light"] #pitch-page .aqi-lbl{color:#777}
+body[data-theme="light"] #pitch-page .svc-card:hover{background:rgba(0,0,0,.02)}
+body[data-theme="light"] #pitch-page .svc-h{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .svc-tag.launch{border-color:rgba(0,0,0,.3);color:#0a0a0a}
+body[data-theme="light"] #pitch-page .svc-tag.p2{border-color:rgba(0,0,0,.1);color:#777}
+body[data-theme="light"] #pitch-page .rev-pct{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .rev-name{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .price-tier{color:#777}
+body[data-theme="light"] #pitch-page .price-num{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .price-period{color:#777}
+body[data-theme="light"] #pitch-page .sc-l{color:#777}
+body[data-theme="light"] #pitch-page .sc-rev{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .funds-n{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .funds-sub{color:#777}
+body[data-theme="light"] #pitch-page .fund-bar-wrap{background:rgba(0,0,0,.08)}
+body[data-theme="light"] #pitch-page .fund-bar{background:rgba(0,0,0,.65)}
+body[data-theme="light"] #pitch-page .fund-amount{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .ask-headline{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .ask-headline em{color:#666}
+body[data-theme="light"] #pitch-page .ask-raise{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .ask-raise-l{color:#777}
+body[data-theme="light"] #pitch-page .tl-month{color:#777}
+body[data-theme="light"] #pitch-page .contact-label{color:#777}
+body[data-theme="light"] #pitch-page .contact-name{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .contact-info a{color:#777}
+body[data-theme="light"] #pitch-page .contact-info a:hover{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .foot-brand{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .foot-logo{border-color:rgba(0,0,0,.35)}
+body[data-theme="light"] #pitch-page .foot-legal{color:#888}
+
+/* Pitch hero */
+body[data-theme="light"] #pitch-page .hero-logo-circle{border-color:#0a0a0a}
+body[data-theme="light"] #pitch-page .hero-headline{background:linear-gradient(135deg,#0a0a0a 0%,#777 100%);-webkit-background-clip:text;background-clip:text}
+body[data-theme="light"] #pitch-page .hero-sub{color:#777}
+body[data-theme="light"] #pitch-page .hero-body{color:#555}
+body[data-theme="light"] #pitch-page .scroll-hint{color:#777}
+body[data-theme="light"] #pitch-page .scroll-line{background:linear-gradient(to bottom,rgba(0,0,0,.3),transparent)}
+
+/* Financial accordion */
+body[data-theme="light"] #pitch-page .fin-toggle{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.09);color:#0a0a0a}
+body[data-theme="light"] #pitch-page .fin-toggle:hover{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.18);box-shadow:0 0 0 1px rgba(0,0,0,.06)}
+body[data-theme="light"] #pitch-page .fin-toggle:active{background:rgba(0,0,0,.04)}
+body[data-theme="light"] #pitch-page .fin-toggle-label{color:#777}
+body[data-theme="light"] #pitch-page .fin-toggle-total{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .fin-chevron{color:rgba(0,0,0,.35);border-color:rgba(0,0,0,.12)}
+body[data-theme="light"] #pitch-page .fin-toggle:hover .fin-chevron{color:rgba(0,0,0,.7);border-color:rgba(0,0,0,.25)}
+body[data-theme="light"] #pitch-page .fin-toggle[aria-expanded="true"] .fin-chevron{color:#0a0a0a;border-color:rgba(0,0,0,.3)}
+body[data-theme="light"] #pitch-page .fin-toggle::after{background:linear-gradient(90deg,transparent 0%,transparent 35%,rgba(0,0,0,.25) 50%,transparent 65%,transparent 100%);background-size:200% 100%}
+body[data-theme="light"] #pitch-page .fin-toggle[aria-expanded="true"]::after{background:linear-gradient(90deg,rgba(0,0,0,.08),rgba(0,0,0,.03));background-size:100% 100%}
+body[data-theme="light"] #pitch-page .fin-body{border-left-color:rgba(0,0,0,.08)}
+body[data-theme="light"] #pitch-page .fin-row{border-bottom-color:rgba(0,0,0,.06)}
+body[data-theme="light"] #pitch-page .fin-rv{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .fin-row.total .fin-rl{color:#0a0a0a}
+
+/* Breakeven */
+body[data-theme="light"] #pitch-page .breakeven{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.09)}
+body[data-theme="light"] #pitch-page .breakeven::after{background:linear-gradient(90deg,transparent 0%,transparent 35%,rgba(0,0,0,.3) 50%,transparent 65%,transparent 100%);background-size:200% 100%}
+body[data-theme="light"] #pitch-page .breakeven-n{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .breakeven-l{color:#777}
+body[data-theme="light"] #pitch-page .be-row{color:#555;border-bottom-color:rgba(0,0,0,.05)}
+body[data-theme="light"] #pitch-page .be-row span:last-child{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .be-row.be-total{color:#0a0a0a;border-bottom-color:rgba(0,0,0,.1)}
+body[data-theme="light"] #pitch-page .be-row.be-total span:last-child{color:#0a0a0a}
+body[data-theme="light"] #pitch-page .be-section-label{color:#777;border-bottom-color:rgba(0,0,0,.06)}
+
+/* Solution & zone images - slightly brighter in light mode */
+body[data-theme="light"] #pitch-page .solution-img-wrap img{filter:brightness(1)}
+body[data-theme="light"] #pitch-page .solution-img-wrap{background:rgba(0,0,0,.04)}
+body[data-theme="light"] #pitch-page .zone-img-wrap img{filter:brightness(1)}
+
 
 /* ── FINANCIAL ACCORDION SHIMMER ── */
 @keyframes shimmer-border {
@@ -635,6 +879,10 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
     <a href="#waitlist">Join Waitlist</a>
     <a href="#contact">Contact</a>
   </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
 </nav>
 <div class="menu-overlay" id="menuOverlay"></div>
 <div class="floating-social">
@@ -758,6 +1006,20 @@ document.querySelectorAll("a[href^='#']").forEach(function(a){
     if(t)t.scrollIntoView({behavior:"smooth",block:"start"});
   });
 });
+
+// ── THEME TOGGLE ──
+(function(){
+  var saved=localStorage.getItem("rr-theme");
+  if(saved==="light")document.body.setAttribute("data-theme","light");
+  var btn=document.getElementById("themeToggle");
+  if(btn){
+    btn.addEventListener("click",function(){
+      var isLight=document.body.getAttribute("data-theme")==="light";
+      if(isLight){document.body.removeAttribute("data-theme");localStorage.setItem("rr-theme","dark");}
+      else{document.body.setAttribute("data-theme","light");localStorage.setItem("rr-theme","light");}
+    });
+  }
+})();
 </script>
 <script>
 // ── PITCH OPEN/CLOSE ──
