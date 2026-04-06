@@ -107,8 +107,8 @@ footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem;color:#80
 .footer-links a{color:#808080;text-decoration:none;transition:color .3s;font-size:.875rem}
 .footer-links a:hover{color:#fff}
 .footer-copyright{color:#606060}
-#pitch-page{position:fixed;inset:0;z-index:500;overflow-y:auto;overflow-x:hidden;background:#0a0908;transform:translateY(102%);transition:transform .65s cubic-bezier(.16,1,.3,1);-webkit-overflow-scrolling:touch}
-#pitch-page.open{transform:translateY(0)}
+#pitch-page{position:fixed;inset:0;z-index:500;overflow:hidden;background:#0a0908;transform:translateY(102%);transition:transform .65s cubic-bezier(.16,1,.3,1);-webkit-overflow-scrolling:touch}
+#pitch-page.open{transform:translateY(0);overflow-y:auto;overflow-x:hidden}
 @media(max-width:768px){
   .nav{padding:1.5rem}.menu-toggle{right:1.5rem}
   .hero{padding:6rem 1.5rem 3rem}.hero-logo{margin-top:4rem}
@@ -135,6 +135,8 @@ footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem;color:#80
 }
 
 /* ══ PITCH STYLES ══ */
+#pitch-page section { position: relative; z-index: 1; }
+
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -677,8 +679,8 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
 </div>
 <section class="hero" id="hero">
   <a class="announce-pill" href="#pitch" onclick="openPitch(event)">
-    <span class="announce-pill-badge">Seed Round</span>
-    <span class="announce-pill-text">We're raising ₹3.5 Crore — looking for founding investors</span>
+    <span class="announce-pill-badge">Pre-Seed Round</span>
+    <span class="announce-pill-text">We're raising</span>
     <span class="announce-pill-arrow">→</span>
   </a>
   <h1>
@@ -906,7 +908,7 @@ function initPitchOnce(pp){
 document.querySelectorAll('#s-toc .toc-link').forEach(function(a){
   a.addEventListener('click',function(e){
     e.preventDefault();
-    var id=this.getAttribute('href').replace('#','');
+    var id=this.getAttribute('data-target');
     var el=document.getElementById(id);
     var pp=document.getElementById('pitch-page');
     if(el&&pp) pp.scrollTo({top:el.offsetTop-80,behavior:'smooth'});
@@ -961,18 +963,18 @@ document.querySelectorAll('#s-toc .toc-link').forEach(function(a){
   <div class="inner" style="max-width:760px">
     <span style="display:block;font-size:.7rem;letter-spacing:2.5px;text-transform:uppercase;color:#86868b;margin-bottom:2rem;font-weight:500">Contents</span>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.1rem 2rem;">
-      <a href="#s-problem"  class="toc-link"><span class="toc-num">01</span><span class="toc-title">The Problem</span></a>
-      <a href="#s-solution" class="toc-link"><span class="toc-num">02</span><span class="toc-title">The Solution</span></a>
-      <a href="#s-whynow"   class="toc-link"><span class="toc-num">03</span><span class="toc-title">Why Now</span></a>
-      <a href="#s-proof"    class="toc-link"><span class="toc-num">04</span><span class="toc-title">Global Proof</span></a>
-      <a href="#s-india"    class="toc-link"><span class="toc-num">05</span><span class="toc-title">India Market</span></a>
-      <a href="#s-whitespace" class="toc-link"><span class="toc-num">06</span><span class="toc-title">Whitespace</span></a>
-      <a href="#s-experience" class="toc-link"><span class="toc-num">07</span><span class="toc-title">The Experience</span></a>
-      <a href="#s-services"   class="toc-link"><span class="toc-num">08</span><span class="toc-title">Services</span></a>
-      <a href="#s-model"      class="toc-link"><span class="toc-num">09</span><span class="toc-title">Business Model</span></a>
-      <a href="#s-financials" class="toc-link"><span class="toc-num">10</span><span class="toc-title">Financials</span></a>
-      <a href="#s-funds"      class="toc-link"><span class="toc-num">11</span><span class="toc-title">Use of Funds</span></a>
-      <a href="#s-ask"        class="toc-link"><span class="toc-num">12</span><span class="toc-title">The Ask</span></a>
+      <a href="javascript:void(0)" data-target="s-problem" class="toc-link"><span class="toc-num">01</span><span class="toc-title">The Problem</span></a>
+      <a href="javascript:void(0)" data-target="s-solution" class="toc-link"><span class="toc-num">02</span><span class="toc-title">The Solution</span></a>
+      <a href="javascript:void(0)" data-target="s-whynow" class="toc-link"><span class="toc-num">03</span><span class="toc-title">Why Now</span></a>
+      <a href="javascript:void(0)" data-target="s-proof" class="toc-link"><span class="toc-num">04</span><span class="toc-title">Global Proof</span></a>
+      <a href="javascript:void(0)" data-target="s-india" class="toc-link"><span class="toc-num">05</span><span class="toc-title">India Market</span></a>
+      <a href="javascript:void(0)" data-target="s-whitespace" class="toc-link"><span class="toc-num">06</span><span class="toc-title">Whitespace</span></a>
+      <a href="javascript:void(0)" data-target="s-experience" class="toc-link"><span class="toc-num">07</span><span class="toc-title">The Experience</span></a>
+      <a href="javascript:void(0)" data-target="s-services" class="toc-link"><span class="toc-num">08</span><span class="toc-title">Services</span></a>
+      <a href="javascript:void(0)" data-target="s-model" class="toc-link"><span class="toc-num">09</span><span class="toc-title">Business Model</span></a>
+      <a href="javascript:void(0)" data-target="s-financials" class="toc-link"><span class="toc-num">10</span><span class="toc-title">Financials</span></a>
+      <a href="javascript:void(0)" data-target="s-funds" class="toc-link"><span class="toc-num">11</span><span class="toc-title">Use of Funds</span></a>
+      <a href="javascript:void(0)" data-target="s-ask" class="toc-link"><span class="toc-num">12</span><span class="toc-title">The Ask</span></a>
     </div>
   </div>
 </section>
