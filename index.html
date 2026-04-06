@@ -654,8 +654,8 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
 </div>
 <section class="hero" id="hero">
   <a class="announce-pill" href="#pitch" onclick="openPitch(event)">
-    <span class="announce-pill-badge">Pre-Seed Round</span>
-    <span class="announce-pill-text">We're raising from founding investors</span>
+    <span class="announce-pill-badge">Seed Round</span>
+    <span class="announce-pill-text">We're raising ₹3.5 Crore — looking for founding investors</span>
     <span class="announce-pill-arrow">→</span>
   </a>
   <h1>
@@ -775,6 +775,7 @@ function openPitch(e){
     pp.innerHTML=tpl.innerHTML;
     pitchLoaded=true;
     initLock();
+    initPitchNav();
   }
   pp.classList.add("open");bb.classList.add("visible");
   document.body.style.overflow="hidden";pp.scrollTop=0;
@@ -810,6 +811,25 @@ function initLock(){
     if(ev.key>="0"&&ev.key<="9"&&entered.length<4){entered+=ev.key;ud();if(entered.length===4)setTimeout(tu,200);}
     else if(ev.key==="Backspace"){entered=entered.slice(0,-1);ud();}
     else if(ev.key==="Enter"){tu();}
+  });
+}
+
+function initPitchNav(){
+  var tog=document.getElementById("pitchMenuToggle");
+  var links=document.getElementById("pitchNavLinks");
+  var ovl=document.getElementById("pitchMenuOverlay");
+  if(!tog)return;
+  function togglePitchMenu(){
+    tog.classList.toggle("active");
+    links.classList.toggle("active");
+    ovl.classList.toggle("active");
+  }
+  tog.addEventListener("click",togglePitchMenu);
+  ovl.addEventListener("click",togglePitchMenu);
+  links.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click",function(){
+      if(links.classList.contains("active"))togglePitchMenu();
+    });
   });
 }
 document.addEventListener("keydown",function(ev){if(ev.key==="Escape")closePitch();});
@@ -883,10 +903,17 @@ function initPitchOnce(pp){
 
 <!-- NAV -->
 <nav class="nav" id="main-nav">
-  <a href="#s-hero" class="nav-brand"><div class="nav-logo"></div><span>Recovery Rooms</span></a>
-  <div class="nav-label">Investor Deck · Confidential · 2026</div>
-  <div class="nav-cta"><a href="mailto:abhamidipatii@gmail.com">Contact Founder</a></div>
+  <a href="/" class="nav-brand"><div class="nav-logo"></div><span>Recovery Rooms</span></a>
+  <div class="menu-toggle" id="pitchMenuToggle">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="nav-links" id="pitchNavLinks">
+    <a href="/#story">Our Story</a>
+    <a href="/#waitlist">Join Waitlist</a>
+    <a href="/#contact">Contact</a>
+  </div>
 </nav>
+<div class="menu-overlay" id="pitchMenuOverlay"></div>
 
 <!-- S1 HERO — raise row removed -->
 <section id="s-hero">
