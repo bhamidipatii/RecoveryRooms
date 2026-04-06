@@ -29,9 +29,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(7px,7px)}
 .menu-toggle.active span:nth-child(2){opacity:0}
 .menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
-.nav-links{position:fixed;top:0;right:-100%;width:70%;max-width:300px;height:100vh;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:8rem;gap:2rem;transition:right .4s cubic-bezier(.4,0,.2,1);z-index:99;border-left:1px solid rgba(255,255,255,.05)}
+.nav-links{position:fixed;top:0;right:-100%;width:70%;max-width:300px;height:100vh;background:rgba(10,10,10,.98);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:5rem;gap:.5rem;transition:right .4s cubic-bezier(.4,0,.2,1);z-index:99;border-left:1px solid rgba(255,255,255,.05)}
 .nav-links.active{right:0}
-.nav-links a{color:#fff;text-decoration:none;font-size:1.5rem;font-weight:400;transition:all .3s;padding:1rem 2rem;border-radius:8px}
+.nav-links a{color:#fff;text-decoration:none;font-size:1.125rem;font-weight:500;transition:all .3s;padding:.65rem 1.25rem;border-radius:8px;letter-spacing:-.01em}
 .nav-links a:hover{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}
 .menu-overlay{position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,0,0,.7);opacity:0;visibility:hidden;transition:all .4s;z-index:98}
 .menu-overlay.active{opacity:1;visibility:visible}
@@ -107,8 +107,8 @@ footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem;color:#80
 .footer-links a{color:#808080;text-decoration:none;transition:color .3s;font-size:.875rem}
 .footer-links a:hover{color:#fff}
 .footer-copyright{color:#606060}
-#pitch-page{position:fixed;inset:0;z-index:500;overflow:hidden;background:#0a0908;transform:translateY(102%);transition:transform .65s cubic-bezier(.16,1,.3,1);-webkit-overflow-scrolling:touch}
-#pitch-page.open{transform:translateY(0);overflow-y:auto;overflow-x:hidden}
+#pitch-page{position:fixed;inset:0;z-index:500;overflow-y:auto;overflow-x:hidden;background:#0a0908;transform:translateY(102%);transition:transform .65s cubic-bezier(.16,1,.3,1);-webkit-overflow-scrolling:touch}
+#pitch-page.open{transform:translateY(0)}
 .pitch-back{position:fixed;top:1.1rem;left:1.25rem;z-index:9999;display:none;align-items:center;gap:.45rem;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5);cursor:pointer;padding:.45rem .85rem;border:1px solid rgba(255,255,255,.12);border-radius:100px;background:rgba(10,9,8,.75);backdrop-filter:blur(12px);transition:color .2s,border-color .2s;font-family:inherit}
 .pitch-back.visible{display:flex}
 .pitch-back:hover{color:#fff;border-color:rgba(255,255,255,.35)}
@@ -128,6 +128,8 @@ footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem;color:#80
 }
 @media(min-width:769px){
   .menu-toggle{display:none}
+  #pitch-page .nav{justify-content:center!important;padding:2rem!important}
+  #pitch-page .nav-brand{margin-right:0!important;margin-left:0!important}
   .nav{justify-content:space-between;padding:1.5rem 3rem}
   .nav-brand{margin-right:auto}
   .nav-links{position:static;width:auto;max-width:none;height:auto;background:transparent;flex-direction:row;gap:.5rem;border:none;padding-top:0}
@@ -194,7 +196,10 @@ body {
 .lock-err.show { opacity: 1; }
 
 /* ── NAV ── */
-#pitch-page .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,10,0.6); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); opacity: 0; transition: opacity .5s ease; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,10,0.6); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); opacity: 1; transition: opacity .5s ease; }
+.nav-links-pitch { display: flex; align-items: center; gap: 0.5rem; }
+.nav-links-pitch a { color: #86868b; text-decoration: none; font-size: 0.9375rem; font-weight: 400; padding: 0.625rem 1.25rem; border-radius: 8px; transition: all 0.3s ease; border: 1px solid transparent; }
+.nav-links-pitch a:hover { color: #ffffff; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
 .nav-brand { display: flex; align-items: center; gap: .75rem; text-decoration: none; color: #ffffff; font-size: 1.125rem; font-weight: 500; letter-spacing: -0.01em; padding: .5rem 1rem; border-radius: 8px; transition: background .3s, border-color .3s; border: 1px solid transparent; }
 .nav-logo { width: 28px; height: 28px; border: 2px solid #ffffff; border-radius: 50%; flex-shrink: 0; }
 .nav-brand:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
@@ -524,7 +529,7 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
   filter: brightness(1);
 }
 @media (max-width: 768px) {
-  #pitch-page .solution-images { grid-template-columns: 1fr; }
+  .solution-images { grid-template-columns: 1fr; }
 }
 
 
@@ -582,38 +587,41 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
   transition: transform .7s ease, filter .7s ease;
 }
 .zone-img-wrap:hover img { transform: scale(1.03); filter: brightness(1); }
+@media (max-width: 768px) {
+  .zone-images { grid-template-columns: 1fr; }
+}
 
 /* ── MOBILE ── */
 @media (max-width: 768px) {
-  #pitch-page .nav { padding: 1.25rem 1.5rem; }
-  #pitch-page .nav-label, #pitch-page .nav-cta { display: none; }
-  #pitch-page section { padding: 6rem 1.5rem 4rem; }
+  .nav { padding: 1.25rem 1.5rem; }
+  .nav-label, .nav-cta { display: none; }
+  section { padding: 6rem 1.5rem 4rem; }
   #s-hero { padding: 7rem 1.5rem 4rem; }
-  #pitch-page .stat-row { grid-template-columns: repeat(3,1fr); }
-  #pitch-page .stat-item { padding: 1.25rem .5rem !important; border-right: 1px solid rgba(255,255,255,0.07) !important; border-bottom: none !important; }
-  #pitch-page .stat-item:last-child { border-right: none !important; }
-  #pitch-page .stat-n { font-size: clamp(1rem, 5vw, 1.5rem); }
-  #pitch-page .zone-card { grid-template-columns: 1fr; gap: 1rem; }
-  #pitch-page .diff-grid { grid-template-columns: 1fr; }
-  #pitch-page .diff-card { border-right: none !important; padding: 2rem 0 !important; border-bottom: 1px solid rgba(255,255,255,0.07); }
-  #pitch-page .rev-row, .scenarios, .pricing-grid, .two-col { grid-template-columns: 1fr; }
-  #pitch-page .market-matrix { grid-template-columns: 1fr 1fr; }
-  #pitch-page .mstat { padding: 1.25rem !important; }
-  #pitch-page .mstat-n { font-size: clamp(1.2rem, 5vw, 1.8rem); }
-  #pitch-page .rev-card, .sc, .price-col { border-right: none !important; padding: 2rem 0 !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
+  .stat-row { grid-template-columns: repeat(3,1fr); }
+  .stat-item { padding: 1.25rem .5rem !important; border-right: 1px solid rgba(255,255,255,0.07) !important; border-bottom: none !important; }
+  .stat-item:last-child { border-right: none !important; }
+  .stat-n { font-size: clamp(1rem, 5vw, 1.5rem); }
+  .zone-card { grid-template-columns: 1fr; gap: 1rem; }
+  .diff-grid { grid-template-columns: 1fr; }
+  .diff-card { border-right: none !important; padding: 2rem 0 !important; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .rev-row, .scenarios, .pricing-grid, .two-col { grid-template-columns: 1fr; }
+  .market-matrix { grid-template-columns: 1fr 1fr; }
+  .mstat { padding: 1.25rem !important; }
+  .mstat-n { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+  .rev-card, .sc, .price-col { border-right: none !important; padding: 2rem 0 !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
   #be-details > div { grid-template-columns: 1fr !important; }
-  #pitch-page .proof-grid { grid-template-columns: 1fr; }
-  #pitch-page .proof-card { border-right: none !important; padding: 2rem 0 !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
-  #pitch-page .svc-grid { grid-template-columns: 1fr; }
-  #pitch-page .tw-item { grid-template-columns: 2rem 1fr; }
-  #pitch-page .tw-tag { display: none; }
-  #pitch-page .comp-row { grid-template-columns: 1fr; gap: .75rem; }
-  #pitch-page .comp-row.us-row { margin: 0 -1.5rem; padding: 1.5rem !important; }
-  #pitch-page .timeline { flex-direction: column; }
-  #pitch-page .tl-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; padding: 1.5rem 0 !important; }
+  .proof-grid { grid-template-columns: 1fr; }
+  .proof-card { border-right: none !important; padding: 2rem 0 !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .tw-item { grid-template-columns: 2rem 1fr; }
+  .tw-tag { display: none; }
+  .comp-row { grid-template-columns: 1fr; gap: .75rem; }
+  .comp-row.us-row { margin: 0 -1.5rem; padding: 1.5rem !important; }
+  .timeline { flex-direction: column; }
+  .tl-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; padding: 1.5rem 0 !important; }
   footer { flex-direction: column; gap: 1rem; }
-  #pitch-page .foot-legal { text-align: left; }
-  #pitch-page .sec-num { display: none; }
+  .foot-legal { text-align: left; }
+  .sec-num { display: none; }
 }
 
 </style>
@@ -645,7 +653,7 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
   </a>
 </div>
 <section class="hero" id="hero">
-  <a class="announce-pill" href="#" onclick="openPitch(event)">
+  <a class="announce-pill" href="#pitch" onclick="openPitch(event)">
     <span class="announce-pill-badge">Seed Round</span>
     <span class="announce-pill-text">We're raising ₹3.5 Crore — looking for founding investors</span>
     <span class="announce-pill-arrow">→</span>
@@ -677,15 +685,11 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
   <p>The future of performance isn't just about pushing harder.</p>
   <p class="large-statement">It's about <span class="paint-underline" id="underline-recover">recovering</span> deeper.</p>
   <div class="waitlist" id="waitlist">
-    <h2>Recovery is here.</h2><br>
-    <p class="waitlist-subtitle" style="text-align:center">Invite only.</p>
-    <form class="waitlist-form" id="waitlistForm">
-      <div class="input-wrapper">
-        <input type="email" placeholder="Email address" required id="emailInput">
-        <button type="submit"><span>Begin Recovery</span></button>
-      </div>
-      <div class="success-message" id="successMessage">Thank you. We'll be in touch soon.</div>
-    </form>
+    <h2>Recovery is here.</h2>
+    <p class="waitlist-subtitle" style="text-align:center;margin-top:.5rem">Invite only.</p>
+    <p class="waitlist-subtitle" style="text-align:center;margin-top:.5rem;font-size:.9rem;color:#606060">Hyderabad · Opening 2026</p>
+    <iframe data-tally-src="https://tally.so/embed/VLYB1J?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="516" frameborder="0" marginheight="0" marginwidth="0" title="Join the Recovery Rooms Waitlist"></iframe>
+    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
   </div>
 </div>
 <footer>
@@ -749,13 +753,7 @@ var ur=document.getElementById("underline-recover");if(ur)ulObs.observe(ur);
 var cwObs=new IntersectionObserver(function(ens){ens.forEach(function(e){if(e.isIntersecting)e.target.classList.add("active");});},{root:null,rootMargin:"-75% 0px -25% 0px",threshold:0});
 var cw=document.getElementById("circle-while");if(cw)cwObs.observe(cw);
 
-// ── FORM ──
-document.getElementById("waitlistForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  var sm=document.getElementById("successMessage");
-  sm.classList.add("show");document.getElementById("emailInput").value="";
-  setTimeout(function(){sm.classList.remove("show");},5000);
-});
+// ── FORM handled by Tally ──
 
 // ── SMOOTH SCROLL ──
 document.querySelectorAll("a[href^='#']").forEach(function(a){
@@ -768,8 +766,72 @@ document.querySelectorAll("a[href^='#']").forEach(function(a){
 </script>
 <script>
 // ── PITCH OPEN/CLOSE ──
-var pitchLoaded=false;
-var pitchHTML=`<!-- LOCK -->
+window.addEventListener("load",function(){if(window.location.hash==="#pitch")openPitch();});
+function openPitch(e){
+  if(e)e.preventDefault();
+  var pp=document.getElementById("pitch-page"),bb=document.getElementById("pitch-back");
+  pp.classList.add("open");bb.classList.add("visible");
+  document.body.style.overflow="hidden";pp.scrollTop=0;
+  history.pushState(null,null,"#pitch");
+  setTimeout(function(){initPitchOnce(pp);},100);
+}
+function closePitch(){
+  var pp=document.getElementById("pitch-page"),bb=document.getElementById("pitch-back");
+  pp.classList.remove("open");bb.classList.remove("visible");
+  document.body.style.overflow="";
+  history.pushState("",document.title,window.location.pathname);
+}
+document.addEventListener("keydown",function(ev){if(ev.key==="Escape")closePitch();});
+
+// ── LOCK ──
+(function(){
+  var PIN="1101",entered="";
+  var lockEl=document.getElementById("lock"),navEl=document.getElementById("main-nav"),errEl=document.getElementById("lock-err");
+  function ud(){for(var i=0;i<4;i++)document.getElementById("ld"+i).className="lock-dot"+(i<entered.length?" filled":"");}
+  function fe(){for(var i=0;i<4;i++)document.getElementById("ld"+i).className="lock-dot error";errEl.classList.add("show");setTimeout(function(){entered="";ud();errEl.classList.remove("show");},900);}
+  function tu(){if(entered===PIN){lockEl.style.transition="opacity .5s";lockEl.style.opacity="0";setTimeout(function(){lockEl.style.display="none";if(navEl)navEl.style.opacity="1";},500);}else{fe();}}
+  document.querySelectorAll(".lock-btn").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var nv=btn.dataset.n;
+      if(nv==="del"){entered=entered.slice(0,-1);ud();}
+      else if(nv==="ok"){tu();}
+      else if(entered.length<4){entered+=nv;ud();if(entered.length===4)setTimeout(tu,200);}
+    });
+  });
+  var pp2=document.getElementById("pitch-page");
+  if(pp2)pp2.addEventListener("keydown",function(ev){
+    if(!lockEl||lockEl.style.display==="none")return;
+    if(ev.key>="0"&&ev.key<="9"&&entered.length<4){entered+=ev.key;ud();if(entered.length===4)setTimeout(tu,200);}
+    else if(ev.key==="Backspace"){entered=entered.slice(0,-1);ud();}
+    else if(ev.key==="Enter"){tu();}
+  });
+})();
+
+// ── ACCORDION ──
+function toggleBreakeven(){var bd=document.getElementById("be-details"),bc=document.getElementById("be-chevron"),o=bd.style.display==="block";bd.style.display=o?"none":"block";bc.style.transform=o?"rotate(0deg)":"rotate(180deg)";}
+function toggleFin(id){var fb=document.getElementById("body-"+id),ft=document.getElementById("toggle-"+id),o=fb.classList.contains("open");fb.classList.toggle("open",!o);ft.setAttribute("aria-expanded",String(!o));}
+function toggleMore(btn){var m=btn.nextElementSibling,o=m.style.display==="block";m.style.display=o?"none":"block";btn.textContent=o?"Learn more ↓":"Close ↑";}
+
+// ── PITCH SCROLL OBSERVERS ──
+var pitchInited=false;
+function initPitchOnce(pp){
+  if(pitchInited)return;pitchInited=true;
+  var prog=document.getElementById("progress");
+  pp.addEventListener("scroll",function(){if(prog)prog.style.width=(pp.scrollTop/(pp.scrollHeight-pp.clientHeight)*100)+"%";},{passive:true});
+  var rO=new IntersectionObserver(function(ens){ens.forEach(function(en){if(en.isIntersecting){en.target.classList.add("in");rO.unobserve(en.target);}});},{rootMargin:"0px 0px -6% 0px",threshold:.07,root:pp});
+  pp.querySelectorAll(".r").forEach(function(el){rO.observe(el);});
+  setTimeout(function(){pp.querySelectorAll("#s-hero .r").forEach(function(el,i){setTimeout(function(){el.classList.add("in");},i*120);});},200);
+  var bO=new IntersectionObserver(function(ens){ens.forEach(function(en){if(en.isIntersecting){en.target.querySelectorAll(".fund-bar").forEach(function(b){b.classList.add("in");});bO.unobserve(en.target);}});},{threshold:.3,root:pp});
+  var fs=document.getElementById("s-funds");if(fs)bO.observe(fs);
+  var secs=["s-hero","s-problem","s-solution","s-whynow","s-proof","s-india","s-whitespace","s-experience","s-services","s-model","s-financials","s-funds","s-ask"];
+  var dts=document.querySelectorAll("#dots .dot");
+  var sO=new IntersectionObserver(function(ens){ens.forEach(function(en){if(en.isIntersecting){var idx=secs.indexOf(en.target.id);dts.forEach(function(d,i){d.classList.toggle("active",i===idx);});}});},{threshold:.4,root:pp});
+  secs.forEach(function(id){var el=document.getElementById(id);if(el)sO.observe(el);});
+  dts.forEach(function(d,i){d.addEventListener("click",function(){var el=document.getElementById(secs[i]);if(el)el.scrollIntoView({behavior:"smooth"});});});
+}
+</script>
+<template id="pitch-tpl">
+<!-- LOCK -->
 <div id="lock">
   <div class="lock-logo-wrap">
     <div class="lock-circle"></div>
@@ -788,12 +850,11 @@ var pitchHTML=`<!-- LOCK -->
   <div class="lock-err" id="lock-err">Incorrect PIN</div>
 </div>
 
-<!-- NAV — matches home page style -->
-<nav class="nav" id="main-nav" style="justify-content:center;position:fixed;top:0;left:0;right:0;z-index:100;padding:2rem;display:flex;align-items:center;background:rgba(10,10,10,0.6);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);">
-  <a href="#s-hero" class="nav-brand" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:#ffffff;font-size:1.125rem;font-weight:500;letter-spacing:-0.01em;padding:0.5rem 1rem;border-radius:8px;border:1px solid transparent;transition:all 0.3s ease;">
-    <div class="nav-logo" style="width:32px;height:32px;border:2px solid #ffffff;border-radius:50%;flex-shrink:0;"></div>
-    <span>Recovery Rooms</span>
-  </a>
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <a href="#s-hero" class="nav-brand"><div class="nav-logo"></div><span>Recovery Rooms</span></a>
+  <div class="nav-label">Investor Deck · Confidential · 2026</div>
+  <div class="nav-cta"><a href="mailto:abhamidipatii@gmail.com">Contact Founder</a></div>
 </nav>
 
 <!-- S1 HERO — raise row removed -->
@@ -1232,97 +1293,7 @@ var pitchHTML=`<!-- LOCK -->
     </div>
   </div>
   <span class="sec-num">12</span>
-</section>`;
-
-function openPitch(e){
-  if(e)e.preventDefault();
-  var pp=document.getElementById("pitch-page"),bb=document.getElementById("pitch-back");
-  // Inject pitch HTML on first open
-  if(!pitchLoaded){
-    pp.innerHTML=pitchHTML;
-    pitchLoaded=true;
-    initLock(); // init lock after HTML exists in DOM
-  }
-  pp.classList.add("open");bb.classList.add("visible");
-  document.body.style.overflow="hidden";pp.scrollTop=0;
-  setTimeout(function(){initPitchOnce(pp);},100);
-}
-function closePitch(){
-  var pp=document.getElementById("pitch-page"),bb=document.getElementById("pitch-back");
-  pp.classList.remove("open");bb.classList.remove("visible");
-  document.body.style.overflow="";
-}
-document.addEventListener("keydown",function(ev){if(ev.key==="Escape")closePitch();});
-
-// ── LOCK (called after pitch HTML is injected) ──
-function initLock(){
-  var PIN="1101",entered="";
-  var lockEl=document.getElementById("lock");
-  var navEl=document.getElementById("main-nav");
-  var errEl=document.getElementById("lock-err");
-  if(!lockEl)return; // already unlocked or not present
-
-  function ud(){
-    for(var i=0;i<4;i++)
-      document.getElementById("ld"+i).className="lock-dot"+(i<entered.length?" filled":"");
-  }
-  function fe(){
-    for(var i=0;i<4;i++) document.getElementById("ld"+i).className="lock-dot error";
-    errEl.classList.add("show");
-    setTimeout(function(){entered="";ud();errEl.classList.remove("show");},900);
-  }
-  function tu(){
-    if(entered===PIN){
-      lockEl.style.transition="opacity .5s";
-      lockEl.style.opacity="0";
-      setTimeout(function(){
-        lockEl.style.display="none";
-        if(navEl) navEl.style.opacity="1";
-      },500);
-    } else { fe(); }
-  }
-
-  // Attach to buttons inside #lock
-  lockEl.querySelectorAll(".lock-btn").forEach(function(btn){
-    btn.addEventListener("click",function(){
-      var nv=btn.dataset.n;
-      if(nv==="del"){entered=entered.slice(0,-1);ud();}
-      else if(nv==="ok"){tu();}
-      else if(entered.length<4){entered+=nv;ud();if(entered.length===4)setTimeout(tu,200);}
-    });
-  });
-
-  // Keyboard support
-  document.getElementById("pitch-page").addEventListener("keydown",function(ev){
-    if(!lockEl||lockEl.style.display==="none")return;
-    if(ev.key>="0"&&ev.key<="9"&&entered.length<4){entered+=ev.key;ud();if(entered.length===4)setTimeout(tu,200);}
-    else if(ev.key==="Backspace"){entered=entered.slice(0,-1);ud();}
-    else if(ev.key==="Enter"){tu();}
-  });
-}
-
-// ── ACCORDION ──
-function toggleBreakeven(){var bd=document.getElementById("be-details"),bc=document.getElementById("be-chevron"),o=bd.style.display==="block";bd.style.display=o?"none":"block";bc.style.transform=o?"rotate(0deg)":"rotate(180deg)";}
-function toggleFin(id){var fb=document.getElementById("body-"+id),ft=document.getElementById("toggle-"+id),o=fb.classList.contains("open");fb.classList.toggle("open",!o);ft.setAttribute("aria-expanded",String(!o));}
-function toggleMore(btn){var m=btn.nextElementSibling,o=m.style.display==="block";m.style.display=o?"none":"block";btn.textContent=o?"Learn more ↓":"Close ↑";}
-
-// ── PITCH SCROLL OBSERVERS ──
-var pitchInited=false;
-function initPitchOnce(pp){
-  if(pitchInited)return;pitchInited=true;
-  var prog=document.getElementById("progress");
-  pp.addEventListener("scroll",function(){if(prog)prog.style.width=(pp.scrollTop/(pp.scrollHeight-pp.clientHeight)*100)+"%";},{passive:true});
-  var rO=new IntersectionObserver(function(ens){ens.forEach(function(en){if(en.isIntersecting){en.target.classList.add("in");rO.unobserve(en.target);}});},{rootMargin:"0px 0px -6% 0px",threshold:.07,root:pp});
-  pp.querySelectorAll(".r").forEach(function(el){rO.observe(el);});
-  setTimeout(function(){pp.querySelectorAll("#s-hero .r").forEach(function(el,i){setTimeout(function(){el.classList.add("in");},i*120);});},200);
-  var bO=new IntersectionObserver(function(ens){ens.forEach(function(en){if(en.isIntersecting){en.target.querySelectorAll(".fund-bar").forEach(function(b){b.classList.add("in");});bO.unobserve(en.target);}});},{threshold:.3,root:pp});
-  var fs=document.getElementById("s-funds");if(fs)bO.observe(fs);
-  var secs=["s-hero","s-problem","s-solution","s-whynow","s-proof","s-india","s-whitespace","s-experience","s-services","s-model","s-financials","s-funds","s-ask"];
-  var dts=document.querySelectorAll("#dots .dot");
-  var sO=new IntersectionObserver(function(ens){ens.forEach(function(en){if(en.isIntersecting){var idx=secs.indexOf(en.target.id);dts.forEach(function(d,i){d.classList.toggle("active",i===idx);});}});},{threshold:.4,root:pp});
-  secs.forEach(function(id){var el=document.getElementById(id);if(el)sO.observe(el);});
-  dts.forEach(function(d,i){d.addEventListener("click",function(){var el=document.getElementById(secs[i]);if(el)el.scrollIntoView({behavior:"smooth"});});});
-}
-</script>
+</section>
+</template>
 </body>
 </html>
