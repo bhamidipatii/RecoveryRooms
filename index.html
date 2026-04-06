@@ -544,9 +544,9 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
 body[data-theme="light"]{background:#f5f5f5;color:#0a0a0a}
 body[data-theme="light"] ::selection{background:#000;color:#fff}
 body[data-theme="light"] ::-moz-selection{background:#000;color:#fff}
-body[data-theme="light"] .orb1{background:#c0c0c0 !important}
-body[data-theme="light"] .orb2{background:#d0d0d0 !important}
-body[data-theme="light"] .orb3{background:#c8c8c8 !important}
+body[data-theme="light"] .orb1{background:#555 !important;opacity:.12}
+body[data-theme="light"] .orb2{background:#666 !important;opacity:.1}
+body[data-theme="light"] .orb3{background:#555 !important;opacity:.1}
 body[data-theme="light"] .grid-overlay{background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px)}
 body[data-theme="light"] .cursor-dot{background:rgba(0,0,0,.75)}
 body[data-theme="light"] .cursor-follower{border-color:rgba(0,0,0,.35)}
@@ -617,8 +617,11 @@ body[data-theme="light"] .lock-dot.filled{background:#0a0a0a;border-color:#0a0a0
 body[data-theme="light"] .lock-btn{border-color:rgba(0,0,0,.08);background:rgba(0,0,0,.04);color:#0a0a0a}
 body[data-theme="light"] .lock-btn:hover{background:rgba(0,0,0,.09);border-color:rgba(0,0,0,.18)}
 
-/* Pitch nav */
-body[data-theme="light"] #pitch-page .nav{background:rgba(245,245,245,.88);border-bottom-color:rgba(0,0,0,.07)}
+/* Pitch nav — needs !important to override inline styles on injected HTML */
+body[data-theme="light"] #pitch-page .nav{background:rgba(245,245,245,.88) !important;border-bottom-color:rgba(0,0,0,.07) !important}
+body[data-theme="light"] #pitch-page .nav-brand{color:#0a0a0a !important;border-color:transparent !important}
+body[data-theme="light"] #pitch-page .nav-logo{border-color:#0a0a0a !important}
+body[data-theme="light"] #pitch-page .nav-brand:hover{background:rgba(0,0,0,.06) !important;border-color:rgba(0,0,0,.12) !important}
 body[data-theme="light"] #pitch-page .nav-label{color:#777}
 body[data-theme="light"] #pitch-page .nav-cta a{color:#777}
 body[data-theme="light"] #pitch-page .nav-cta a:hover{color:#0a0a0a;background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
