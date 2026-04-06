@@ -44,7 +44,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text"
 .announce-pill-arrow{font-size:.78rem;color:rgba(255,255,255,.35);flex-shrink:0;transition:transform .2s,color .2s}
 .announce-pill:hover .announce-pill-arrow{transform:translateX(2px);color:rgba(255,255,255,.7)}
 .hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem}
-.hero-logo{width:60px;height:60px;margin-bottom:3rem;opacity:0;animation:fadeInDown 1s ease-out .2s forwards}
+.hero-logo{display:none}
 .hero-logo-circle{width:100%;height:100%;border:2px solid #fff;border-radius:50%;animation:pulse 3s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.8}}
 @keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
@@ -654,11 +654,10 @@ footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; just
 </div>
 <section class="hero" id="hero">
   <a class="announce-pill" href="#pitch" onclick="openPitch(event)">
-    <span class="announce-pill-badge">Seed Round</span>
-    <span class="announce-pill-text">We're raising ₹3.5 Crore — looking for founding investors</span>
+    <span class="announce-pill-badge">Pre-Seed Round</span>
+    <span class="announce-pill-text">We're raising from founding investors</span>
     <span class="announce-pill-arrow">→</span>
   </a>
-  <div class="hero-logo"><div class="hero-logo-circle"></div></div>
   <h1>
     <span class="gradient-text">Recovery.<br>
       <span class="word-cycle"><span class="static-part">Re</span><span class="dynamic-part" id="animated-suffix"></span></span>
@@ -767,9 +766,16 @@ document.querySelectorAll("a[href^='#']").forEach(function(a){
 <script>
 // ── PITCH OPEN/CLOSE ──
 window.addEventListener("load",function(){if(window.location.hash==="#pitch")openPitch();});
+var pitchLoaded=false;
 function openPitch(e){
   if(e)e.preventDefault();
   var pp=document.getElementById("pitch-page"),bb=document.getElementById("pitch-back");
+  if(!pitchLoaded){
+    var tpl=document.getElementById("pitch-tpl");
+    pp.innerHTML=tpl.innerHTML;
+    pitchLoaded=true;
+    initLock();
+  }
   pp.classList.add("open");bb.classList.add("visible");
   document.body.style.overflow="hidden";pp.scrollTop=0;
   history.pushState(null,null,"#pitch");
@@ -780,6 +786,31 @@ function closePitch(){
   pp.classList.remove("open");bb.classList.remove("visible");
   document.body.style.overflow="";
   history.pushState("",document.title,window.location.pathname);
+}
+
+function initLock(){
+  var PIN="1101",entered="";
+  var lockEl=document.getElementById("lock");
+  var navEl=document.getElementById("main-nav");
+  var errEl=document.getElementById("lock-err");
+  if(!lockEl)return;
+  function ud(){for(var i=0;i<4;i++)document.getElementById("ld"+i).className="lock-dot"+(i<entered.length?" filled":"");}
+  function fe(){for(var i=0;i<4;i++)document.getElementById("ld"+i).className="lock-dot error";errEl.classList.add("show");setTimeout(function(){entered="";ud();errEl.classList.remove("show");},900);}
+  function tu(){if(entered===PIN){lockEl.style.transition="opacity .5s";lockEl.style.opacity="0";setTimeout(function(){lockEl.style.display="none";if(navEl)navEl.style.opacity="1";},500);}else{fe();}}
+  lockEl.querySelectorAll(".lock-btn").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var nv=btn.dataset.n;
+      if(nv==="del"){entered=entered.slice(0,-1);ud();}
+      else if(nv==="ok"){tu();}
+      else if(entered.length<4){entered+=nv;ud();if(entered.length===4)setTimeout(tu,200);}
+    });
+  });
+  document.getElementById("pitch-page").addEventListener("keydown",function(ev){
+    if(!lockEl||lockEl.style.display==="none")return;
+    if(ev.key>="0"&&ev.key<="9"&&entered.length<4){entered+=ev.key;ud();if(entered.length===4)setTimeout(tu,200);}
+    else if(ev.key==="Backspace"){entered=entered.slice(0,-1);ud();}
+    else if(ev.key==="Enter"){tu();}
+  });
 }
 document.addEventListener("keydown",function(ev){if(ev.key==="Escape")closePitch();});
 
@@ -859,7 +890,6 @@ function initPitchOnce(pp){
 
 <!-- S1 HERO — raise row removed -->
 <section id="s-hero">
-  <div class="hero-logo-circle"></div>
   <h1 class="hero-headline">India trains hard.<br><em>Nobody recovers.</em></h1>
   <p class="hero-sub">Pre-Seed Round · Hyderabad, India · 2026</p>
   <p class="hero-body">India's first social wellness club — contrast therapy, compression, clean air, and community. Not a gym. Not a spa. Something India has never seen.</p>
