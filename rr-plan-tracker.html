@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recovery Rooms — 11-Week Plan</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+  background: #000000;
+  color: #ffffff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+::selection { background: #ffffff; color: #000000; }
+
+.bg-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none; }
+.orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s infinite ease-in-out; }
+.orb1 { width: 500px; height: 500px; background: #ffffff; top: -10%; left: -10%; animation-delay: 0s; }
+.orb2 { width: 400px; height: 400px; background: #ffffff; bottom: -15%; right: -5%; animation-delay: -7s; }
+.orb3 { width: 350px; height: 350px; background: #ffffff; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: -14s; }
+@keyframes float { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-30px) scale(1.1); } 66% { transform: translate(-20px,20px) scale(0.9); } }
+
+.grid-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px; z-index: 1; pointer-events: none;
+}
+
+#progress { position: fixed; top: 0; left: 0; height: 1px; background: rgba(255,255,255,0.5); z-index: 200; transition: width .3s ease; width: 0; }
+
+/* LOCK */
+#lock { position: fixed; inset: 0; z-index: 1000; background: #000000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.lock-logo-wrap { display: flex; flex-direction: column; align-items: center; gap: .75rem; margin-bottom: 2.5rem; }
+.lock-circle { width: 48px; height: 48px; border: 2px solid #ffffff; border-radius: 50%; }
+.lock-name { font-size: 1.125rem; font-weight: 500; letter-spacing: -0.01em; color: #ffffff; }
+.lock-sub { font-size: .72rem; letter-spacing: 2.5px; text-transform: uppercase; color: #86868b; margin-bottom: 2.5rem; }
+.lock-dots { display: flex; gap: .6rem; margin-bottom: 2.5rem; }
+.lock-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.2); transition: background .15s, border-color .15s; }
+.lock-dot.filled { background: #ffffff; border-color: #ffffff; }
+.lock-dot.error { background: #ff4444; border-color: #ff4444; }
+.lock-numpad { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; width: 216px; }
+.lock-btn { aspect-ratio: 1; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.05); color: #ffffff; font-family: inherit; font-size: 1.125rem; font-weight: 400; cursor: pointer; border-radius: 50%; transition: background .2s, border-color .2s, transform .1s; display: flex; align-items: center; justify-content: center; }
+.lock-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+.lock-btn:active { transform: scale(.94); }
+.lock-err { font-size: .7rem; color: #ff4444; letter-spacing: 1px; text-transform: uppercase; opacity: 0; transition: opacity .2s; margin-top: 1.25rem; }
+.lock-err.show { opacity: 1; }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.5rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(10,10,10,0.7); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.nav-brand { display: flex; align-items: center; gap: .75rem; text-decoration: none; color: #ffffff; font-size: 1.125rem; font-weight: 500; letter-spacing: -0.01em; }
+.nav-logo { width: 28px; height: 28px; border: 2px solid #ffffff; border-radius: 50%; flex-shrink: 0; }
+.nav-label { font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+
+/* HERO */
+.hero {
+  position: relative; z-index: 2;
+  padding: 12rem 3rem 5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  max-width: 880px; margin: 0 auto;
+}
+.eyebrow { display: block; font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 2rem; font-weight: 400; }
+.display { font-size: clamp(2.5rem, 5.5vw, 4rem); font-weight: 600; line-height: 1.07; letter-spacing: -0.03em; color: #ffffff; margin-bottom: 1.5rem; }
+.display em { font-style: italic; color: rgba(255,255,255,0.6); }
+.hero-sub { font-size: clamp(1rem, 2vw, 1.05rem); line-height: 1.85; color: rgba(255,255,255,0.65); max-width: 520px; margin-bottom: 3rem; }
+
+/* STAT ROW */
+.stat-row { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid rgba(255,255,255,0.07); }
+.stat-item { padding: 2rem 1.5rem 2rem 0; border-right: 1px solid rgba(255,255,255,0.07); }
+.stat-item:last-child { border-right: none; padding-right: 0; padding-left: 1.5rem; }
+.stat-item:nth-child(2) { padding: 2rem 1.5rem; }
+.stat-n { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 600; letter-spacing: -0.03em; color: #ffffff; line-height: 1; display: block; margin-bottom: .4rem; transition: all 0.3s; }
+.stat-l { font-size: clamp(.9rem, 2vw, 1rem); line-height: 1.85; color: rgba(255,255,255,0.55); }
+
+/* MAIN CONTENT */
+.main { position: relative; z-index: 2; max-width: 880px; margin: 0 auto; padding: 0 3rem 6rem; }
+
+/* LEGEND */
+.legend-row { display: flex; gap: 2rem; padding: 2.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); flex-wrap: wrap; }
+.leg { display: flex; align-items: center; gap: .5rem; font-size: .65rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+.leg-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* GLOBAL PROGRESS BAR */
+.global-prog-wrap { margin: 2.5rem 0 0; }
+.global-prog-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .75rem; }
+.global-prog-label span:first-child { font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.global-prog-label span:last-child { font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.prog-track { height: 1px; background: rgba(255,255,255,0.08); overflow: visible; position: relative; }
+.prog-fill { height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s ease; position: relative; }
+.prog-fill::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 5px; height: 5px; background: #fff; border-radius: 50%; }
+
+/* PHASE LABELS */
+.phase-header { padding: 3rem 0 1.25rem; }
+.phase-title { font-size: .62rem; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
+/* WEEK CARD */
+.week-card { border-top: 1px solid rgba(255,255,255,0.07); }
+.week-card:last-child { border-bottom: 1px solid rgba(255,255,255,0.07); }
+.week-head {
+  display: grid;
+  grid-template-columns: 90px 1fr auto auto;
+  gap: 2rem;
+  align-items: center;
+  padding: 1.75rem 0;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s;
+}
+.week-head:hover { opacity: 0.8; }
+.wnum { font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.wtitle { font-size: .95rem; font-weight: 500; color: #ffffff; letter-spacing: -0.01em; }
+.wprogress { font-size: .65rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; }
+.chev { font-size: 1rem; color: rgba(255,255,255,0.45); transition: transform 0.25s; line-height: 1; }
+.chev.open { transform: rotate(90deg); }
+
+/* WEEK BODY */
+.week-body { display: none; padding-bottom: 2rem; }
+.week-body.open { display: block; }
+
+.wk-prog-track { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 1.5rem; overflow: visible; position: relative; }
+.wk-prog-fill { height: 1px; background: rgba(255,255,255,0.3); transition: width 0.4s ease; }
+
+/* TASKS */
+.task-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.task-row:last-of-type { border-bottom: none; }
+.task-row:hover { opacity: 0.75; }
+
+.check-box {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all 0.2s;
+}
+.check-box.done { background: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.9); }
+.check-mark { display: none; width: 9px; height: 9px; }
+.check-box.done .check-mark { display: block; }
+
+.task-txt { font-size: clamp(.9rem, 2vw, .95rem); line-height: 1.75; color: rgba(255,255,255,0.75); transition: color 0.2s; }
+.task-txt.done { color: rgba(255,255,255,0.2); text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.12); }
+
+.owner-tag { font-size: .55rem; letter-spacing: 1.5px; text-transform: uppercase; padding: .25rem .7rem; border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.55); white-space: nowrap; margin-top: 3px; }
+.owner-tag.adi { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.85); }
+.owner-tag.cf { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); }
+.owner-tag.both { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); }
+
+/* MILESTONE */
+.milestone-row {
+  display: flex; align-items: center; gap: 1rem;
+  margin-top: 1.5rem; padding: 1rem 1.25rem;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+}
+.ms-diamond { width: 6px; height: 6px; background: rgba(255,255,255,0.4); transform: rotate(45deg); flex-shrink: 0; }
+.ms-text { font-size: .72rem; letter-spacing: 1px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+/* RESET */
+.reset-wrap { padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.06); text-align: right; }
+.reset-btn { background: none; border: 1px solid rgba(255,255,255,0.08); color: #86868b; font-family: inherit; font-size: .65rem; letter-spacing: 1.5px; text-transform: uppercase; padding: .6rem 1.25rem; border-radius: 100px; cursor: pointer; transition: all 0.2s; }
+.reset-btn:hover { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); }
+
+/* FOOTER */
+footer { position: relative; z-index: 2; padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); }
+.foot-brand { display: flex; align-items: center; gap: .6rem; font-size: .95rem; font-weight: 500; color: #ffffff; }
+.foot-logo { width: 22px; height: 22px; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 50%; }
+.foot-legal { font-size: .63rem; color: rgba(255,255,255,0.3); text-align: right; line-height: 1.6; }
+
+/* REVEAL */
+.r { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+.r.in { opacity: 1; transform: translateY(0); }
+.r1 { transition-delay: .1s; } .r2 { transition-delay: .2s; } .r3 { transition-delay: .3s; }
+
+@media (max-width: 768px) {
+  .nav { padding: 1.25rem 1.5rem; }
+  .hero { padding: 9rem 1.5rem 3rem; }
+  .main { padding: 0 1.5rem 4rem; }
+  .week-head { grid-template-columns: 70px 1fr auto; gap: 1rem; }
+  .wprogress { display: none; }
+  .task-row { grid-template-columns: 1.5rem 1fr auto; gap: 1rem; }
+  footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  .foot-legal { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="lock">
+  <div class="lock-logo-wrap">
+    <div class="lock-circle"></div>
+    <span class="lock-name">Recovery Rooms</span>
+  </div>
+  <span class="lock-sub">Founder Plan &middot; Internal</span>
+  <div class="lock-dots">
+    <div class="lock-dot" id="ld0"></div>
+    <div class="lock-dot" id="ld1"></div>
+    <div class="lock-dot" id="ld2"></div>
+    <div class="lock-dot" id="ld3"></div>
+  </div>
+  <div class="lock-numpad">
+    <button class="lock-btn" data-n="1">1</button>
+    <button class="lock-btn" data-n="2">2</button>
+    <button class="lock-btn" data-n="3">3</button>
+    <button class="lock-btn" data-n="4">4</button>
+    <button class="lock-btn" data-n="5">5</button>
+    <button class="lock-btn" data-n="6">6</button>
+    <button class="lock-btn" data-n="7">7</button>
+    <button class="lock-btn" data-n="8">8</button>
+    <button class="lock-btn" data-n="9">9</button>
+    <button class="lock-btn" data-n="del" style="font-size:.85rem;letter-spacing:.5px">DEL</button>
+    <button class="lock-btn" data-n="0">0</button>
+    <button class="lock-btn" data-n="ok" style="font-size:.85rem;letter-spacing:.5px">OK</button>
+  </div>
+  <div class="lock-err" id="lock-err">Incorrect PIN</div>
+</div>
+
+<div class="bg-animation">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+<div class="grid-overlay"></div>
+<div id="progress"></div>
+
+<nav class="nav">
+  <a class="nav-brand" href="https://recoveryrooms.in">
+    <div class="nav-logo"></div>
+    Recovery Rooms
+  </a>
+  <span class="nav-label">Internal — Founder Plan</span>
+</nav>
+
+<div class="hero r">
+  <span class="eyebrow r">Hyderabad · 2026</span>
+  <h1 class="display r r1">11-week <em>build sprint.</em></h1>
+  <p class="hero-sub r r2">From idea on paper to investor-ready business plan — with vendor quotes, location brief, financial model, and cofounder structure locked. Side-project pace. 10–15 hrs/week.</p>
+
+  <div class="stat-row r r3">
+    <div class="stat-item">
+      <span class="stat-n" id="s-done">0</span>
+      <span class="stat-l">tasks done</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-n" id="s-left">55</span>
+      <span class="stat-l">remaining</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-n" id="s-pct">0%</span>
+      <span class="stat-l">complete</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="legend-row r">
+    <div class="leg"><div class="leg-dot" style="background:rgba(255,255,255,0.7)"></div>Adi</div>
+    <div class="leg"><div class="leg-dot" style="background:rgba(255,255,255,0.25)"></div>Aashritha</div>
+    <div class="leg"><div class="leg-dot" style="background:rgba(255,255,255,0.45)"></div>Both</div>
+    <div class="leg"><div class="ms-diamond" style="display:inline-block;width:6px;height:6px;background:rgba(255,255,255,0.4);transform:rotate(45deg);margin-right:6px"></div>Milestone</div>
+  </div>
+
+  <div class="global-prog-wrap r r1">
+    <div class="global-prog-label">
+      <span>Overall progress</span>
+      <span id="g-pct-label">0 / 55</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="global-bar" style="width:0%"></div></div>
+  </div>
+
+  <div id="weeks-container"></div>
+
+  <div class="reset-wrap">
+    <button class="reset-btn" onclick="resetAll()">Reset all progress</button>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-brand"><div class="foot-logo"></div>Recovery Rooms</div>
+  <div class="foot-legal">Internal founder document · Not for distribution · 2026</div>
+</footer>
+
+<script>
+const data=[
+  {w:1,days:"Days 1–7",title:"Orientation + structure",phase:"Foundation",
+   tasks:[
+    {t:"Lock the business plan skeleton — all sections defined, both of you know what you're building",o:"b"},
+    {t:"Formally divide ownership: you own contrast, compression, café ops + financials; cofounder owns breathwork + café concept identity",o:"b"},
+    {t:"Set up a shared working doc (Notion or Google Docs) — single source of truth for the whole plan",o:"a"},
+    {t:"Start a Hyderabad market landscape doc — who else is in recovery/wellness, what they charge",o:"a"},
+    {t:"Cofounder maps breathwork formats, session durations, and programming ideas",o:"c"},
+   ],
+   ms:"Working doc live. Roles locked. Both aligned on structure."},
+  {w:2,days:"Days 8–14",title:"Market research + positioning",phase:"Foundation",
+   tasks:[
+    {t:"Deep research on Rebase Recovery London — services, pricing, layout, community model. This is your blueprint.",o:"a"},
+    {t:"Hyderabad competitor map: gyms, spas, wellness studios, pricing benchmarks",o:"a"},
+    {t:"Define 3 customer profiles: competitive athletes, tech professionals, longevity-focused individuals",o:"b"},
+    {t:"Draft the AQI differentiation section with real Hyderabad AQI data. 'You train in the city. You recover in the mountains.'",o:"a"},
+    {t:"Aashritha: breathwork market research — formats, certifications required, India pricing benchmarks",o:"c"},
+   ],
+   ms:"Market research section drafted. Positioning statement locked."},
+  {w:3,days:"Days 15–21",title:"Service design + pricing",phase:"Foundation",
+   tasks:[
+    {t:"Design the full service menu: contrast immersion classes (hero product), private suites, compression, sauna tiers, phased clinical services",o:"a"},
+    {t:"Price every service — benchmark against London and Dubai, then adjust for Hyderabad purchasing power",o:"a"},
+    {t:"Design contrast immersion class format: 6–8 people, guided, session arc, duration, exactly what happens in the water",o:"b"},
+    {t:"Aashritha: breathwork session formats, class durations, pricing, and contraindications",o:"c"},
+    {t:"Aashritha: Recovery Café concept draft — menu philosophy, 5–8 hero items, distinct brand identity (not a juice bar)",o:"c"},
+   ],
+   ms:"Full service menu + pricing table complete."},
+  {w:4,days:"Days 22–28",title:"Financial model — build v1",phase:"Build",
+   tasks:[
+    {t:"Revenue model: sessions per day × price × utilization rate (start at 40% capacity, target 70%)",o:"a"},
+    {t:"Full capex list: contrast tanks, compression units, sauna, HEPA filtration, café fit-out, AV, signage",o:"a"},
+    {t:"Full opex list: Hyderabad rent estimate, staff (front desk, 2 recovery coaches, café), utilities, insurance",o:"a"},
+    {t:"Aashritha: café revenue model — average spend per visit, projected daily covers",o:"c"},
+    {t:"Gross breakeven calculation — sessions/month needed to cover opex",o:"a"},
+   ],
+   ms:"Financial model spreadsheet v1 complete."},
+  {w:5,days:"Days 29–35",title:"Vendor outreach — equipment",phase:"Build",
+   tasks:[
+    {t:"Cold plunge / contrast tanks: contact Renu Therapy, Ice Barrel, Indian importers. Request specs + landed India pricing",o:"a"},
+    {t:"Sauna: contact Harvia, Tylö, or Indian custom wood sauna fabricators for build quotes",o:"a"},
+    {t:"Compression: contact NormaTec, HyperIce, Therabody India distributors — pricing, MOQ, maintenance terms",o:"a"},
+    {t:"HEPA + AQI: contact IQAir, Blueair, or commercial HVAC vendors for a full facility system quote",o:"a"},
+    {t:"Aashritha: café equipment — espresso machine, blenders, refrigeration — get 3 vendor quotes",o:"c"},
+   ],
+   ms:"First vendor emails sent. At least 2 replies with ballpark pricing."},
+  {w:6,days:"Days 36–42",title:"Vendor follow-up + location hunt",phase:"Build",
+   tasks:[
+    {t:"Chase all non-responders from Week 5. Indian distributors are slow — call, don't just email.",o:"a"},
+    {t:"Hyderabad location search: target Jubilee Hills, Banjara Hills, Madhapur, Gachibowli corridors",o:"a"},
+    {t:"Write your space brief: 3,000–5,000 sq ft, ground floor, wet zone clearance, high ceiling, parking, strong power supply",o:"a"},
+    {t:"Brief 3–5 Hyderabad commercial brokers with your requirements and timeline",o:"a"},
+    {t:"Aashritha: breathwork props + equipment cost estimates for the financial model",o:"c"},
+   ],
+   ms:"3+ vendor quotes received. Location brief sent to brokers."},
+  {w:7,days:"Days 43–49",title:"Operations plan + team structure",phase:"Build",
+   tasks:[
+    {t:"Ops model: daily schedule, session capacity per zone, staff rotas, opening hours, zone management",o:"a"},
+    {t:"Write job descriptions: Recovery Coach, Experience Manager (front desk), Café Barista",o:"b"},
+    {t:"Clinical services licensing: what's required in Telangana for IV drips, chiropractor, lymphatic drainage",o:"a"},
+    {t:"Aashritha: breathwork coach hiring criteria, certifications required, pay structure",o:"c"},
+    {t:"Map the full member journey — first visit to membership, booking flow, community touchpoints",o:"b"},
+   ],
+   ms:"Operations section of business plan drafted."},
+  {w:8,days:"Days 50–56",title:"Legal, compliance + cofounder structure",phase:"Validate",
+   tasks:[
+    {t:"Legal entity decision: Private Limited vs LLP — implications for fundraising in India",o:"a"},
+    {t:"License research for Telangana: FSSAI (café), health establishment permit, fire NOC, municipal clearances",o:"a"},
+    {t:"Draft cofounder agreement: equity split, roles, vesting schedule, IP ownership, exit provisions",o:"b"},
+    {t:"One intro call with a startup-friendly CA or lawyer familiar with wellness/hospitality in India",o:"a"},
+    {t:"Aashritha: Café FSSAI registration requirements and food safety compliance checklist",o:"c"},
+   ],
+   ms:"Entity structure decided. Cofounder agreement drafted."},
+  {w:9,days:"Days 57–63",title:"Financial model — refine with real data",phase:"Validate",
+   tasks:[
+    {t:"Replace all estimate line items with real vendor quotes received in Weeks 5–6",o:"a"},
+    {t:"Build 3 scenarios: conservative (50% utilization), base (65%), optimistic (80%)",o:"a"},
+    {t:"Runway calculation: how long does seed funding last at each scenario?",o:"a"},
+    {t:"Aashritha: refine café revenue projections with actual menu pricing and cover estimates",o:"c"},
+    {t:"Produce 3-year P&L summary ready for the business plan and pitch deck",o:"a"},
+   ],
+   ms:"Financial model v2 with real data. 3-scenario P&L complete."},
+  {w:10,days:"Days 64–70",title:"Write + assemble the business plan",phase:"Validate",
+   tasks:[
+    {t:"Write the executive summary — the full Recovery Rooms vision in 1 tight page",o:"b"},
+    {t:"Assemble all sections: market, services, ops, team, financials, legal, go-to-market",o:"a"},
+    {t:"Cofounder writes the Recovery Café section as a standalone identity within the plan",o:"c"},
+    {t:"Write the AQI + air quality differentiation section — emotionally compelling, not just technical",o:"a"},
+    {t:"Full read-through together — identify gaps, inconsistencies, missing data",o:"b"},
+   ],
+   ms:"Business plan first complete draft assembled."},
+  {w:11,days:"Days 71–77",title:"Refine + investor-ready",phase:"Close",
+   tasks:[
+    {t:"Incorporate all Week 10 feedback — tighten the narrative and financials",o:"a"},
+    {t:"Update the pitch deck at recoveryrooms.in/pitch to align with final business plan numbers",o:"a"},
+    {t:"Get one external read — a mentor, investor contact, or domain expert",o:"b"},
+    {t:"Finalise vendor shortlist: top 2 picks per equipment category with clear reasoning",o:"a"},
+    {t:"Lock 3 concrete next actions: site visit confirmed, investor meeting booked, legal entity filed",o:"b"},
+   ],
+   ms:"Business plan investor-ready. Pitch deck updated. Next 3 actions locked."},
+];
+
+const ownerLabel={a:"Adi",c:"Aashritha",b:"Both"};
+const ownerClass={a:"adi",c:"cf",b:"both"};
+const STATE_KEY="rr_plan_v3";
+let state=JSON.parse(localStorage.getItem(STATE_KEY)||"{}");
+let openWeek=0;
+
+function save(){try{localStorage.setItem(STATE_KEY,JSON.stringify(state));}catch(e){}}
+
+function getTotals(){
+  let done=0,total=0;
+  data.forEach((wk,wi)=>{
+    total+=wk.tasks.length;
+    wk.tasks.forEach((_,ti)=>{if(state[wi+"-"+ti])done++;});
+  });
+  return{done,total};
+}
+
+function updateGlobals(){
+  const{done,total}=getTotals();
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById("s-done").textContent=done;
+  document.getElementById("s-left").textContent=total-done;
+  document.getElementById("s-pct").textContent=pct+"%";
+  document.getElementById("global-bar").style.width=pct+"%";
+  document.getElementById("g-pct-label").textContent=done+" / "+total;
+  document.getElementById("progress").style.width=pct+"%";
+}
+
+function toggleTask(wi,ti){
+  const key=wi+"-"+ti;
+  state[key]=!state[key];
+  save();
+  const cb=document.getElementById("cb-"+wi+"-"+ti);
+  const tt=document.getElementById("tt-"+wi+"-"+ti);
+  cb.classList.toggle("done",state[key]);
+  tt.classList.toggle("done",state[key]);
+  let wkDone=0;
+  data[wi].tasks.forEach((_,ti2)=>{if(state[wi+"-"+ti2])wkDone++;});
+  const pct=Math.round(wkDone/data[wi].tasks.length*100);
+  const fill=document.querySelector("#wb-"+wi+" .wk-prog-fill");
+  if(fill)fill.style.width=pct+"%";
+  document.querySelector("#wh-"+wi+" .wprogress").textContent=wkDone+" / "+data[wi].tasks.length;
+  updateGlobals();
+}
+
+function toggleWeek(i){
+  const wb=document.getElementById("wb-"+i);
+  const cv=document.getElementById("chev-"+i);
+  const isOpen=wb.classList.contains("open");
+  document.querySelectorAll(".week-body").forEach(el=>el.classList.remove("open"));
+  document.querySelectorAll(".chev").forEach(el=>el.classList.remove("open"));
+  if(!isOpen){wb.classList.add("open");cv.classList.add("open");openWeek=i;}
+  else openWeek=null;
+}
+
+function resetAll(){
+  if(!confirm("Reset all progress?"))return;
+  state={};save();render();
+}
+
+let currentPhase="";
+
+function render(){
+  const container=document.getElementById("weeks-container");
+  container.innerHTML="";
+  data.forEach((wk,wi)=>{
+    let wkDone=0;
+    wk.tasks.forEach((_,ti)=>{if(state[wi+"-"+ti])wkDone++;});
+    const pct=Math.round(wkDone/wk.tasks.length*100);
+
+    if(wk.phase!==currentPhase){
+      currentPhase=wk.phase;
+      const ph=document.createElement("div");
+      ph.className="phase-header";
+      ph.innerHTML='<span class="phase-title">'+wk.phase+'</span>';
+      container.appendChild(ph);
+    }
+
+    const card=document.createElement("div");
+    card.className="week-card";
+    card.innerHTML=
+      '<div class="week-head" id="wh-'+wi+'" onclick="toggleWeek('+wi+')">'+
+        '<span class="wnum">'+wk.days+'</span>'+
+        '<span class="wtitle">'+wk.title+'</span>'+
+        '<span class="wprogress">'+wkDone+' / '+wk.tasks.length+'</span>'+
+        '<span class="chev" id="chev-'+wi+'">&#x203A;</span>'+
+      '</div>'+
+      '<div class="week-body" id="wb-'+wi+'">'+
+        '<div class="wk-prog-track"><div class="wk-prog-fill" style="width:'+pct+'%"></div></div>'+
+        wk.tasks.map((tk,ti)=>{
+          const done=!!state[wi+"-"+ti];
+          return '<div class="task-row" onclick="toggleTask('+wi+','+ti+')">'+
+            '<div class="check-box'+(done?" done":"")+'" id="cb-'+wi+'-'+ti+'">'+
+              '<svg class="check-mark" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">'+
+                '<polyline points="1.5,4.5 3.5,6.5 7.5,2" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'+
+              '</svg>'+
+            '</div>'+
+            '<span class="task-txt'+(done?" done":"")+'" id="tt-'+wi+'-'+ti+'">'+tk.t+'</span>'+
+            '<span class="owner-tag '+ownerClass[tk.o]+'">'+ownerLabel[tk.o]+'</span>'+
+          '</div>';
+        }).join("")+
+        '<div class="milestone-row">'+
+          '<div class="ms-diamond"></div>'+
+          '<span class="ms-text">'+wk.ms+'</span>'+
+        '</div>'+
+      '</div>';
+    container.appendChild(card);
+  });
+
+  updateGlobals();
+
+  if(openWeek!==null){
+    const wb=document.getElementById("wb-"+openWeek);
+    const cv=document.getElementById("chev-"+openWeek);
+    if(wb){wb.classList.add("open");cv.classList.add("open");}
+  }
+}
+
+// Scroll progress
+window.addEventListener('scroll',()=>{
+  const s=document.documentElement;
+  const pct=s.scrollTop/(s.scrollHeight-s.clientHeight)*100;
+  document.getElementById('progress').style.width=pct+'%';
+});
+
+// Reveal on scroll
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{rootMargin:'0px 0px -6% 0px',threshold:.07});
+setTimeout(()=>{document.querySelectorAll('.r').forEach(el=>obs.observe(el));},100);
+
+render();
+
+// LOCK
+const PIN='1234';let entered='';
+const lockEl=document.getElementById('lock');
+const errEl=document.getElementById('lock-err');
+function updateDots(){for(let i=0;i<4;i++)document.getElementById('ld'+i).className='lock-dot'+(i<entered.length?' filled':'');}
+function flashError(){for(let i=0;i<4;i++)document.getElementById('ld'+i).className='lock-dot error';errEl.classList.add('show');setTimeout(()=>{entered='';updateDots();errEl.classList.remove('show');},900);}
+function tryUnlock(){if(entered===PIN){lockEl.style.transition='opacity .5s ease';lockEl.style.opacity='0';setTimeout(()=>{lockEl.style.display='none';},500);}else{flashError();}}
+document.querySelectorAll('.lock-btn').forEach(btn=>{btn.addEventListener('click',()=>{const n=btn.dataset.n;if(n==='del'){entered=entered.slice(0,-1);updateDots();}else if(n==='ok'){tryUnlock();}else if(entered.length<4){entered+=n;updateDots();if(entered.length===4)setTimeout(tryUnlock,200);}});});
+document.addEventListener('keydown',e=>{if(!lockEl||lockEl.style.display==='none')return;if(e.key>='0'&&e.key<='9'&&entered.length<4){entered+=e.key;updateDots();if(entered.length===4)setTimeout(tryUnlock,200);}else if(e.key==='Backspace'){entered=entered.slice(0,-1);updateDots();}else if(e.key==='Enter'){tryUnlock();}});
+</script>
+</body>
+</html>
